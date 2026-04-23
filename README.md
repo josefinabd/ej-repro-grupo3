@@ -12,7 +12,7 @@ Este proyecto se organiza de la siguiente manera:
 
 <!-- WORKING_TREE_START -->
 ```text
-template-repro/
+ej-repro-grupo3/
  |- .vscode/
  |  |- settings.json
  |- README.md
