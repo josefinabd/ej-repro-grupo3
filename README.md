@@ -38,6 +38,7 @@ ej-repro-grupo3/
  |  |- prod_prep.Rmd
  |  |- prod_prep.html
  |- scripts/
+ |  |- 01_ seleccion_articulo.qmd
  |  |- update-working-tree.sh
 ```
 <!-- WORKING_TREE_END -->
