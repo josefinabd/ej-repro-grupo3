@@ -2,16 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Autor 1">
-<meta name="author" content="Autor 2">
-<meta name="author" content="Autor 3">
+<meta name="author" content="Josefina Bustos">
+<meta name="author" content="Benjamin Casacuberta">
 
 <title>Reporte de Reproducibilidad</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -23,7 +25,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="index_files/libs/clipboard/clipboard.min.js"></script>
@@ -33,10 +54,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="index_files/libs/quarto-html/anchor.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-b832b01a31bc3ca4fdb8da1ffc392533.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-15fe1e483d0269a17ac037d2fcf7f448.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>
   h1.title {
     color: #ffffff !important;
@@ -55,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Reporte de Reproducibilidad</h1>
-            <p class="subtitle lead">Artículo: [título del artículo a reproducir] <br><a href="https://github.com/data-soc/template-repro" target="_blank"><i class="bi bi-github"></i></a></p>
+            <p class="subtitle lead">Artículo: II Encuesta Nacional sobre Uso del Tiempo (ENUT 2023) <br><a href="https://github.com/josefinabd/ej-repro-grupo3" target="_blank"><i class="bi bi-github"></i></a></p>
                       </div>
   </div>
     
@@ -64,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="quarto-title-meta-heading">Afiliación</div>
     
       <div class="quarto-title-meta-contents">
-      <p class="author">Autor 1 <a href="mailto:mail@mail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+      <p class="author">Josefina Bustos <a href="mailto:josefina.bustos.d@ug.uchile.cl" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
     </div>
     <div class="quarto-title-meta-contents">
           <p class="affiliation">
@@ -72,15 +93,7 @@ ul.task-list li input[type="checkbox"] {
             </p>
         </div>
       <div class="quarto-title-meta-contents">
-      <p class="author">Autor 2 <a href="mailto:mail@mail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-    </div>
-    <div class="quarto-title-meta-contents">
-          <p class="affiliation">
-              Departamento de Sociología, Universidad de Chile
-            </p>
-        </div>
-      <div class="quarto-title-meta-contents">
-      <p class="author">Autor 3 <a href="mailto:mail@mail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+      <p class="author">Benjamin Casacuberta <a href="mailto:b.casacuberta@ug.uchile.cl" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
     </div>
     <div class="quarto-title-meta-contents">
           <p class="affiliation">
@@ -95,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">21 de abril de 2026</p>
+        <p class="date">5 de abril de 2026</p>
       </div>
     </div>
     
@@ -119,6 +132,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones"><span class="header-section-number">4</span> Conclusiones</a></li>
   <li><a href="#recomendaciones" id="toc-recomendaciones" class="nav-link" data-scroll-target="#recomendaciones"><span class="header-section-number">5</span> Recomendaciones</a></li>
   <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias"><span class="header-section-number">6</span> Referencias</a></li>
+  <li><a href="#apéndice" id="toc-apéndice" class="nav-link" data-scroll-target="#apéndice"><span class="header-section-number">7</span> Apéndice</a>
+  <ul class="collapse">
+  <li><a href="#material-suplementario" id="toc-material-suplementario" class="nav-link" data-scroll-target="#material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</a></li>
+  <li><a href="#código" id="toc-código" class="nav-link" data-scroll-target="#código"><span class="header-section-number">7.2</span> Código</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -185,6 +203,24 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="referencias" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Referencias</h1>
+<div id="refs" role="list">
+
+</div>
+</section>
+<section id="apéndice" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Apéndice</h1>
+<section id="material-suplementario" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</h2>
+<ul>
+<li>Incluyan aquí detalles metodológicos adicionales, en caso de ser necesario</li>
+</ul>
+</section>
+<section id="código" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="código"><span class="header-section-number">7.2</span> Código</h2>
+<ul>
+<li>Incluir acá el código original, en caso de estar disponible.</li>
+</ul>
+</section>
 </section>
 
 </main>
@@ -240,13 +276,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

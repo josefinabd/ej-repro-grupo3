@@ -1,24 +1,19 @@
 ---
 title: "Reporte de Reproducibilidad"
-subtitle: "Artículo: [título del artículo a reproducir]
- <br><a href='https://github.com/data-soc/template-repro' target='_blank' ><i class='bi bi-github'></i></a>" # reemplazar con dirección al repositorio del proyecto
+subtitle: "Artículo: II Encuesta Nacional sobre Uso del Tiempo (ENUT 2023) <br><a href='https://github.com/josefinabd/ej-repro-grupo3' target='_blank' ><i class='bi bi-github'></i></a>" # reemplazar con dirección al repositorio del proyecto
 author:
-  - name: Autor 1
-    email: mail@mail.com 
+  - name: Josefina Bustos
+    email: josefina.bustos.d@ug.uchile.cl 
     affiliations:
       - ref: 1
-  - name: Autor 2
-    email: mail@mail.com 
+  - name: Benjamin Casacuberta
+    email: b.casacuberta@ug.uchile.cl
     affiliations:
       - ref: 1
-  - name: Autor 3
-    email: mail@mail.com 
-    affiliations:
-      - ref: 1 
 affiliations: 
   - id: 1
     name: Departamento de Sociología, Universidad de Chile
-date: today
+date: "04-05-2026"
 lang: "es"
 fontsize: 13pt
 format:
@@ -52,11 +47,9 @@ format:
     geometry: margin=2.5cm
 editor_options: 
   chunk_output_type: console
-# bibliography: "input/bib/mi_coleccion.bib"
-csl: "input/bib/apa6.csl"
+bibliography: "input/bib/biblio_enut.bib"
+csl: "input/bib/apa7.csl"
 ---
-
-
 
 # Selección de artículo/reporte
 
