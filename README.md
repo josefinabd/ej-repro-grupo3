@@ -22,7 +22,7 @@ ej-repro-grupo3/
  |- input/
  |  |- bib/
  |  |  |- apa7.csl
- |  |  |- biblio_enut.bib
+ |  |  |- bibliog_enut.bib
  |  |- data/
  |  |  |- original/
  |  |  |- proc/
