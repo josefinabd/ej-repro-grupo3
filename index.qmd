@@ -47,18 +47,16 @@ format:
     geometry: margin=2.5cm
 editor_options: 
   chunk_output_type: console
-bibliography: "input/bib/biblio_enut.bib"
+bibliography: "input/bib/bibliog_enut.bib"
 csl: "input/bib/apa7.csl"
 ---
 
 # Selección de artículo/reporte
-
 - Referencia del artículo seleccionado
 - Breve resumen del artículo seleccionado
 - Justificación de la selección del artículo
 
 # Evaluación de reproducibilidad
-
 Análisis detallado del artículo seleccionado, evaluando los siguientes aspectos:
 
   -   **Disponibilidad de datos**: ¿El artículo proporciona acceso a los datos utilizados en el estudio? Si no es así, ¿qué dificultades se enfrentaron para obtener los datos?
@@ -67,11 +65,9 @@ Análisis detallado del artículo seleccionado, evaluando los siguientes aspecto
   -   **Transparencia**: ¿El artículo proporciona información sobre los posibles conflictos de interés, financiamiento, y otros aspectos relacionados con la transparencia de la investigación?   
 
 # Análisis reproducible
-
 Seleccionar un resultado específico del artículo (por ejemplo, una tabla de resultados o una figura) y tratar de reproducirlo utilizando los datos y el código proporcionados. Documentar el proceso de reproducción, incluyendo cualquier dificultad encontrada y cómo se resolvió.
 
 ## Resultado a reproducir
-
 - Imagen de tabla(s), figura(s) o resultado específico del artículo seleccionado, junto a una breve descripción.
 
 ## Proceso de reproducción

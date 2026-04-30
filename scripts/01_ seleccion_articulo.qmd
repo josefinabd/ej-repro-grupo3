@@ -1,13 +1,13 @@
 # Seleccion de articulo
 
-El articulo seleccionado para el análisis de reproducibilidad es la segunda encuesta nacional sobre uso de tiempo, publicada por el Instituto Nacional de Estadística en Chile. Esta encuesta permite conocer cómo las personas distribuyen su tiempo entre diferentes actividades, como trabajo, estudio, ocio, entre otras. 
+El artículo seleccionado para el análisis de reproducibilidad es la segunda Encuesta Nacional sobre Uso de Tiempo (ENUT), publicada por el Instituto Nacional de Estadística en Chile. Esta encuesta permite conocer cómo las personas distribuyen su tiempo entre diferentes actividades, como trabajo, estudio, ocio, entre otras. 
 
-El objetivo general de la encuesta es obtener informacion de personas de 12 años o mas sobre como utilizan su tiempo, en torno al trabajo no remunerado, trabajo en la ocupacion y actividades personales; ademas de proveer informacion relacionada a su calidad de vida y bienestar respecto a su uso de tiempo, en las principales zonas urbanas del país. 
+El objetivo general de la encuesta es obtener información de cómo las personas de 12 años o más utilizan su tiempo, principalmente en torno al trabajo no remunerado, trabajo en la ocupación y actividades personales; además de proveer información relacionada a su calidad de vida y bienestar respecto a su uso de tiempo en las principales zonas urbanas del país. 
 
-Entre los objetivos especificos se encuentran: identificar brechas de género, medición de carga laboral a través del tiempo dedicado a la ocupación y trabajo no remunerado, medir uso de tiempo y satisfacción de la población, por último, identificar acceso y necesidad de servicios e instituciones de cuidado para la población dependiente. 
+Entre los objetivos específicos se encuentran: identificar brechas de género, medición de carga laboral a través del tiempo dedicado a la ocupación y trabajo no remunerado, medir uso de tiempo y satisfacción de la población, y por último, identificar acceso y necesidad de servicios e instituciones de cuidado para la población dependiente. 
 
-Hemos escogido este artículo con el propósito de tener una base de datos amplia y detallada sobre el uso del tiempo en la población chilena, lo que nos permitirá realizar un análisis reproducible significativo y relevante. Además, la encuesta proporciona una gran cantidad de variables y resultados que pueden ser utilizados para explorar diferentes aspectos del uso del tiempo (como los presentados en los objetivos de la encuesta) lo que nos permitirá profundizar en el análisis y obtener insights valiosos sobre las actividades diarias de las personas.
+Para el reporte de reproducibilidad, se escoge este artículo con el propósito de tener una base de datos amplia y detallada sobre el uso del tiempo en la población chilena, lo que nos permitirá realizar un análisis reproducible significativo y relevante. Además, la encuesta proporciona una gran cantidad de variables y resultados que pueden ser utilizados para explorar diferentes aspectos del uso del tiempo (como los presentados en los objetivos de la encuesta) lo que nos permitirá profundizar en el análisis y obtener insights valiosos sobre las actividades diarias de las personas.
 
-En ese sentido, desde el informe de principales resultados de la encuesta +, hemos escogido la tabla 16 que muestra la participacion y tiempo destinado al trabajo no remunerado segun sexo y nacionalidad. 
+En ese sentido, desde el informe de principales resultados de la encuesta, hemos escogido la tabla 16 que muestra la participación y tiempo destinado al trabajo no remunerado según sexo y nacionalidad. 
 
 
