@@ -8,6 +8,6 @@ Entre los objetivos específicos se encuentran: identificar brechas de género, 
 
 Para el reporte de reproducibilidad, se escoge este artículo con el propósito de tener una base de datos amplia y detallada sobre el uso del tiempo en la población chilena, lo que nos permitirá realizar un análisis reproducible significativo y relevante. Además, la encuesta proporciona una gran cantidad de variables y resultados que pueden ser utilizados para explorar diferentes aspectos del uso del tiempo (como los presentados en los objetivos de la encuesta) lo que nos permitirá profundizar en el análisis y obtener insights valiosos sobre las actividades diarias de las personas.
 
-En ese sentido, desde el informe de principales resultados de la encuesta, hemos escogido la tabla 16 que muestra la participación y tiempo destinado al trabajo no remunerado según sexo y nacionalidad. 
+
 
 
