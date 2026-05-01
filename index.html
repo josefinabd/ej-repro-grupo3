@@ -29,6 +29,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -64,7 +65,7 @@ div.csl-indent {
   }
   .subtitle {
     color: #ffffff !important;
-  }x
+  }
 </style>
 
 
@@ -108,7 +109,7 @@ div.csl-indent {
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">5 de abril de 2026</p>
+        <p class="date">4 de mayo de 2026</p>
       </div>
     </div>
     
@@ -122,7 +123,7 @@ div.csl-indent {
     <h2 id="toc-title">Contenidos</h2>
    
   <ul class="collapse">
-  <li><a href="#selección-de-artículoreporte" id="toc-selección-de-artículoreporte" class="nav-link active" data-scroll-target="#selección-de-artículoreporte"><span class="header-section-number">1</span> Selección de artículo/reporte</a></li>
+  <li><a href="#selección-de-artículo" id="toc-selección-de-artículo" class="nav-link active" data-scroll-target="#selección-de-artículo"><span class="header-section-number">1</span> Selección de artículo</a></li>
   <li><a href="#evaluación-de-reproducibilidad" id="toc-evaluación-de-reproducibilidad" class="nav-link" data-scroll-target="#evaluación-de-reproducibilidad"><span class="header-section-number">2</span> Evaluación de reproducibilidad</a></li>
   <li><a href="#análisis-reproducible" id="toc-análisis-reproducible" class="nav-link" data-scroll-target="#análisis-reproducible"><span class="header-section-number">3</span> Análisis reproducible</a>
   <ul class="collapse">
@@ -146,20 +147,21 @@ div.csl-indent {
 
 
 
-<section id="selección-de-artículoreporte" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Selección de artículo/reporte</h1>
-<ul>
-<li>Referencia del artículo seleccionado</li>
-<li>Breve resumen del artículo seleccionado</li>
-<li>Justificación de la selección del artículo</li>
-</ul>
+<section id="selección-de-artículo" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Selección de artículo</h1>
+<p>El artículo seleccionado para el análisis de reproducibilidad es la segunda Encuesta Nacional sobre Uso de Tiempo (ENUT), publicada por el Instituto Nacional de Estadística en Chile. Esta encuesta permite conocer cómo las personas distribuyen su tiempo entre diferentes actividades, como trabajo, estudio, ocio, entre otras.</p>
+<p>El objetivo general de la encuesta es “obtener información de cómo las personas de 12 años o más utilizan su tiempo, principalmente en torno al trabajo no remunerado, trabajo en la ocupación y actividades personales; además de proveer información relacionada a su calidad de vida y bienestar respecto a su uso de tiempo en las principales zonas urbanas del país” <span class="citation" data-cites="ineficha2025">(<a href="#ref-ineficha2025" role="doc-biblioref">Instituto Nacional de Estadísticas, 2025</a>)</span>.</p>
+<p>Entre los objetivos específicos se encuentra: identificar brechas de género, medición de carga laboral a través del tiempo dedicado a la ocupación y trabajo no remunerado, medir uso de tiempo y satisfacción de la población, y por último, identificar acceso y necesidad de servicios e instituciones de cuidado para la población dependiente.</p>
+<p>Para el reporte de reproducibilidad, se escoge este artículo con el propósito de tener una base de datos amplia y detallada sobre el uso del tiempo en la población chilena, lo que nos permitirá realizar un análisis reproducible significativo y relevante. Además, la encuesta proporciona una gran cantidad de variables y resultados que pueden ser utilizados para explorar diferentes aspectos del uso del tiempo (como los presentados en los objetivos de la encuesta) lo que nos permitirá profundizar en el análisis y obtener insights valiosos sobre las actividades diarias de las personas.</p>
+<p>En ese sentido, desde el informe de principales resultados de la encuesta, hemos escogido la tabla 16 que muestra la participación y tiempo destinado al trabajo no remunerado según sexo y nacionalidad.</p>
 </section>
 <section id="evaluación-de-reproducibilidad" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Evaluación de reproducibilidad</h1>
-<p>Análisis detallado del artículo seleccionado, evaluando los siguientes aspectos:</p>
 <ul>
-<li><strong>Disponibilidad de datos</strong>: ¿El artículo proporciona acceso a los datos utilizados en el estudio? Si no es así, ¿qué dificultades se enfrentaron para obtener los datos?</li>
-<li><strong>Disponibilidad de código</strong>: ¿El artículo proporciona acceso al código utilizado para el análisis? Si es así, ¿cómo se puede acceder?</li>
+<li><strong>Disponibilidad de datos</strong>: Sí, el artículo proporciona acceso a los datos utilizados en el estudio. Los datos están disponibles a través del sitio web del Instituto Nacional de Estadística de Chile, donde se pueden descargar en variados formatos. No hubo dificultades para obtener los datos, ya que el acceso es público y se encuentra claramente indicado en la página web. Además, el artículo incluye un enlace directo a la sección de descarga de datos.<br>
+</li>
+<li><strong>Disponibilidad de código</strong>: No, el artículo no proporciona acceso al código para el análisis. Sin embargo, en el <em>Manual de Uso de base de datos</em> se describen las variables y se entrega de manera robusta el flujo de trabajo que se llevó a cabo para procesar correctamente los microdatos de la encuesta, lo que puede ser de gran ayuda para la replicabilidad. En ese sentido, se especifica la organización de la estructura de la base de datos; librerías necesarias para el procesamiento y la limpieza; metodología para la construcción de indicadores complejos a partir de las preguntas base del cuestionario y, por último, el diseño muestral complejo para asegurar resultados representativos. A pesar de esto, la falta de acceso al código específico utilizado en el estudio dificulta la replicación exacta del análisis realizado, por lo que se utilizarán códigos propios para el proceso de reproducción.<br>
+</li>
 <li><strong>Documentación</strong>: ¿El artículo incluye una descripción clara de los métodos y procedimientos utilizados en el estudio? ¿Es suficiente para que otro investigador pueda replicar el estudio?</li>
 <li><strong>Transparencia</strong>: ¿El artículo proporciona información sobre los posibles conflictos de interés, financiamiento, y otros aspectos relacionados con la transparencia de la investigación?</li>
 </ul>
@@ -203,8 +205,10 @@ div.csl-indent {
 </section>
 <section id="referencias" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Referencias</h1>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-ineficha2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025). <em>Ficha metodológica: II Encuesta sobre Uso del Tiempo 2023</em>. Institución Nacional de Estadísticas.
+</div>
 </div>
 </section>
 <section id="apéndice" class="level1" data-number="7">
