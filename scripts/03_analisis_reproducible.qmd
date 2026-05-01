@@ -1,0 +1,46 @@
+# Análisis reproducible
+
+Seleccionar un resultado específico del artículo (por ejemplo, una tabla de resultados o una figura) y tratar de reproducirlo utilizando los datos y el código proporcionados. Documentar el proceso de reproducción, incluyendo cualquier dificultad encontrada y cómo se resolvió.
+
+
+Para el análisis reproducible se seleccionó la tabla 16 del informe de principales resultados de la ENUT, que muestra la participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad, en día tipo. 
+
+En primer lugar se descargaron los microdatos de la encuesta desde el sitio web del Instituto Nacional de Estadística de Chile, asegurándose de obtener la versión más reciente de los datos. 
+
+```{r}
+# Cargar librerías necesarias
+library(tidyverse)
+library(haven)
+library(survey)
+library(gt)
+
+# cargar los datos
+ENUT_DATA <- readRDS("250117-ii-enut-bdd-r.RDS")
+```
+
+Luego, se revisó el manual de uso de la base de datos para comprender la estructura de los datos y las variables relevantes para el análisis. Se identificaron las variables necesarias, para este caso, las variables de participacion y tiempo. 
+
+```{r}
+ds_vars_part <- ENUT_DATA %>%
+  select(matches("^tc\\d*_p_ds$"), matches("^td\\d*_p_ds$"),
+         matches("^tv\\d*_p_ds$")) %>%
+  names()
+
+fds_vars_part <- ENUT_DATA %>%
+  select(matches("^tc\\d*_p_fds$"), matches("^td\\d*_p_fds$"),
+         matches("^tv\\d*_p_fds$")) %>%
+  names()
+
+ds_vars_tiempo <- ENUT_DATA %>%
+  select(matches("^tc\\d*_t(_n[1-4])?_ds$"),
+         matches("^td\\d*_t_ds$"),
+         matches("^tv\\d*_t_ds$")) %>%
+  names()
+
+fds_vars_tiempo <- ENUT_DATA %>%
+  select(matches("^tc\\d*_t(_n[1-4])?_fds$"),
+         matches("^td\\d*_t_fds$"),
+         matches("^tv\\d*_t_fds$")) %>%
+  names()
+
+```
