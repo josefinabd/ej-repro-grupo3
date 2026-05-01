@@ -9,7 +9,7 @@ Sí, el artículo proporciona acceso a los datos utilizados en el estudio. Los d
   
   -   **Documentación**: ¿El artículo incluye una descripción clara de los métodos y procedimientos utilizados en el estudio? ¿Es suficiente para que otro investigador pueda replicar el estudio?
 
-  Sí, el artículo incluye una descripción clara de los métodos y procedimientos utilizados en el estudio. La documentación es suficiente para que otro investigador pueda replicar el estudio, ya que se detallan las etapas del proceso de análisis y se proporciona información sobre las herramientas y técnicas empleadas.
+  Existe una descripción clara de los métodos y procedimientos utilizados en el estudio, especialmente en el *Documento Metodológico*. En el *Capítulo 5* @inedocumento2025 detalla el diseño estadístico, brindando todas las informaciones necesarias 
 
   -   **Transparencia**: ¿El artículo proporciona información sobre los posibles conflictos de interés, financiamiento, y otros aspectos relacionados con la transparencia de la investigación?
   
