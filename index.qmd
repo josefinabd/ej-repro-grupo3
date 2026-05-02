@@ -47,6 +47,9 @@ format:
     toc: true
     number-sections: true
     geometry: margin=2.5cm
+execute:
+  warning: false
+  message: false
 editor_options: 
   chunk_output_type: console
 bibliography: "input/bib/bibliog_enut.bib"
