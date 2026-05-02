@@ -163,8 +163,7 @@ div.csl-indent {
   <li>
 <a href="#ap%C3%A9ndice" id="toc-apéndice" class="nav-link" data-scroll-target="#ap%C3%A9ndice"><span class="header-section-number">7</span> Apéndice</a>
   <ul class="collapse">
-<li><a href="#material-suplementario" id="toc-material-suplementario" class="nav-link" data-scroll-target="#material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</a></li>
-  <li><a href="#c%C3%B3digo" id="toc-código" class="nav-link" data-scroll-target="#c%C3%B3digo"><span class="header-section-number">7.2</span> Código</a></li>
+<li><a href="#c%C3%B3digo" id="toc-código" class="nav-link" data-scroll-target="#c%C3%B3digo"><span class="header-section-number">7.1</span> Código</a></li>
   </ul>
 </li>
   </ul><div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -196,13 +195,10 @@ div.csl-indent {
 <p>Para el análisis reproducible se seleccionó la Tabla 16 del <a href="#ref-ineinforme2025">Informe de Principales Resultados</a> de la ENUT, que muestra la participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad en día tipo. <img src="input/images/Tabla16.png" class="img-fluid" alt="Tabla 16: Participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad en día tipo"></p>
 </section><section id="proceso-de-reproducción" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="proceso-de-reproducción">
 <span class="header-section-number">3.2</span> Proceso de reproducción</h2>
-<p>Para el procesamiento, limpieza y cálculos de variables, se utilizó el <em>Manual de Uso de Base de Datos</em>, que proporciona una descripción detallada de la estructura de la base de datos y las variables disponibles. En ese sentido, se identificaron las líneas de código necesarias que, a continuación, se presentan para el proceso de reproducción.</p>
+<p>Para el procesamiento, limpieza y cálculos de variables, se utilizó el <em>Manual de uso de base de datos</em>, que proporciona una descripción detallada de la estructura de la base de datos y las variables disponibles. En ese sentido, se identificaron las líneas de código necesarias que, a continuación, se presentan para el proceso de reproducción.</p>
 <section id="procesamiento" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="procesamiento">
 <span class="header-section-number">3.2.1</span> Procesamiento</h3>
-<ul>
-<li>Incluye el código utilizado para procesar los datos, junto con una explicación de cada paso.</li>
-</ul>
-<p>En primer lugar, se cargan las librerias necesarias para el procesamiento de los datos y se descarga la bases de datos (que se encuentra en input, data, original), para luego hacer la identificación de las variables de interés, que en este caso son las variables de participación y tiempo destinado al trabajo no remunerado, tanto para día tipo como para fin de semana.</p>
+<p>En primer lugar, se cargan las librerías necesarias para el procesamiento de los datos y se descarga la bases de datos (que se encuentra en input, data, original), para luego hacer la identificación de las variables de interés, que en este caso son las variables de participación y tiempo destinado al trabajo no remunerado, tanto para día tipo como para fin de semana.</p>
 <div class="cell">
 <details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Cargar librerías necesarias</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -211,50 +207,886 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Cargar datos</span></span>
-<span><span class="va">enut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"input/data/original/250403-ii-enut-bdd-r-v2.RDS"</span><span class="op">)</span></span>
+<span><span class="va">ENUT_DATA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"input/data/original/250403-ii-enut-bdd-r-v2.RDS"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Selección de variables </span></span>
 <span><span class="co">## Variables de participación </span></span>
-<span><span class="va">ds_vars_part</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_p_ds$"</span><span class="op">)</span>, </span>
-<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_p_ds$"</span><span class="op">)</span>,</span>
+<span></span>
+<span><span class="va">ds_vars_part</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_p_ds$"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_p_ds$"</span><span class="op">)</span>,</span>
 <span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_p_ds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
-<span> </span>
-<span><span class="va">fds_vars_part</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_p_fds$"</span><span class="op">)</span>, </span>
-<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_p_fds$"</span><span class="op">)</span>,</span>
+<span></span>
+<span><span class="va">fds_vars_part</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_p_fds$"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_p_fds$"</span><span class="op">)</span>,</span>
 <span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_p_fds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Variables de tiempo </span></span>
-<span><span class="va">ds_vars_tiempo</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_t(_n[1-4])?_ds$"</span><span class="op">)</span>, </span>
+<span><span class="va">ds_vars_tiempo</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_t(_n[1-4])?_ds$"</span><span class="op">)</span>,</span>
 <span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_t_ds$"</span><span class="op">)</span>,</span>
 <span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_t_ds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">fds_vars_tiempo</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_t(_n[1-4])?_fds$"</span><span class="op">)</span>, </span>
+<span><span class="va">fds_vars_tiempo</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_t(_n[1-4])?_fds$"</span><span class="op">)</span>,</span>
 <span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_t_fds$"</span><span class="op">)</span>,</span>
 <span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_t_fds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Se crea una base auxiliar que contiene únicamente la identificación de la persona, en base a si contestó o no el cuestionario, pero sin alterar la base original.</p>
-<p>::: {.cell}</p>
-<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_persona</span>, <span class="va">tiempo</span>,</span>
-<span>        <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_part</span><span class="op">)</span>, </span>
-<span>        <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_part</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_tiempo</span><span class="op">)</span>, </span>
-<span>        <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_tiempo</span><span class="op">)</span><span class="op">)</span></span>
+<div class="cell">
+<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> <span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_persona</span>, <span class="va">tiempo</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_part</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_part</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_tiempo</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_tiempo</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">enut_tnr</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_persona</span><span class="op">)</span> </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details><p>:::</p>
-<p>Posteriormente, se procede a derivar las variables de participación y tiempo. Por un lado, en participación, el código pretende escanear todas las actividades de trabajo no remunerado de cada persona, con el tratamiento de casos perdidos correspondiente en caso de no responder la pregunta, si el dato no existe o no aplica. Finalmente, se crea la participación de día tipo en base a si la persona participa en al menos una de las actividades de cuidado, domésticas o voluntarias o no. Por otro lado, en la variable de tiempo, se crean columnas temporales para que los datos perdidos no afecten las sumas de tiempo. Luego, se calcula el tiempo total destinado al trabajo no remunerado, ponderando el tiempo de día tipo por 5/7 y el tiempo de fin de semana por 2/7, para obtener una medida más representativa del tiempo semanal destinado a estas actividades.</p>
+<span><span class="va">enut_tnr</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_persona</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Posteriormente, se procede a derivar las variables de participación y tiempo. Por un lado, en participación, el código pretende escanear todas las actividades de trabajo no remunerado de cada persona, con el tratamiento de casos perdidos correspondiente en caso de no responder la pregunta, si el dato no existe o no aplica. Finalmente, se crea la participación de día tipo en base a si la persona participa en al menos una de las actividades de cuidado, domésticas, voluntarias o no. Por otro lado, en la variable de tiempo, se crean columnas temporales para que los datos perdidos no afecten las sumas de tiempo. Luego, se calcula el tiempo total destinado al trabajo no remunerado, ponderando el tiempo de día tipo por 5/7 y el tiempo de fin de semana por 2/7, para obtener una medida más representativa del tiempo semanal destinado a estas actividades.</p>
 <div class="cell">
 <details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Derivación de participación </span></span>
+<span></span>
+<span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">enut_auxiliar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    p_tnr_ds <span class="op">=</span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
+<span>        <span class="va">tiempo</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span>        <span class="op">~</span> <span class="cn">NA_real_</span>,</span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_part</span><span class="op">)</span>, <span class="op">~</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">96</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ds_vars_part</span><span class="op">)</span></span>
+<span>        <span class="op">~</span> <span class="fl">96</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_part</span><span class="op">)</span>, <span class="op">~</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span></span>
+<span>        <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_part</span><span class="op">)</span>, <span class="op">~</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span>        <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>        <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA_real_</span><span class="op">)</span>,</span>
+<span>    </span>
+<span>    p_tnr_fds <span class="op">=</span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
+<span>        <span class="va">tiempo</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span>        <span class="op">~</span> <span class="cn">NA_real_</span>,</span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_part</span><span class="op">)</span>, <span class="op">~</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">96</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">fds_vars_part</span><span class="op">)</span></span>
+<span>        <span class="op">~</span> <span class="fl">96</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_part</span><span class="op">)</span>, <span class="op">~</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span></span>
+<span>        <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_part</span><span class="op">)</span>, <span class="op">~</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span>        <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>        <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA_real_</span><span class="op">)</span>,</span>
+<span>    </span>
+<span>    p_tnr_dt <span class="op">=</span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
+<span>        <span class="va">p_tnr_ds</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">p_tnr_fds</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>        <span class="va">p_tnr_ds</span> <span class="op">==</span> <span class="fl">96</span> <span class="op">|</span> <span class="va">p_tnr_fds</span> <span class="op">==</span> <span class="fl">96</span> <span class="op">~</span> <span class="fl">96</span>,</span>
+<span>        <span class="va">p_tnr_ds</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">p_tnr_fds</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">0</span></span>
+<span>      <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">ds_vars_part</span>, <span class="va">fds_vars_part</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Derivación de tiempo</span></span>
+<span></span>
+<span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">enut_auxiliar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">ds_vars_tiempo</span><span class="op">)</span>,</span>
+<span>      <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span> <span class="op">==</span> <span class="fl">96</span> <span class="op">|</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>      .names <span class="op">=</span> <span class="st">"temp_ds_{col}"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">fds_vars_tiempo</span><span class="op">)</span>,</span>
+<span>      <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span> <span class="op">==</span> <span class="fl">96</span> <span class="op">|</span> <span class="va">.</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>      .names <span class="op">=</span> <span class="st">"temp_fds_{col}"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">enut_auxiliar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    t_tnr_ds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"temp_ds_"</span><span class="op">)</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    t_tnr_ds <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">t_tnr_ds</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA_real_</span>, <span class="va">t_tnr_ds</span><span class="op">)</span>,</span>
+<span>    t_tnr_fds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"temp_fds_"</span><span class="op">)</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    t_tnr_fds <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">t_tnr_fds</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA_real_</span>, <span class="va">t_tnr_fds</span><span class="op">)</span>,</span>
+<span>    t_tnr_dt <span class="op">=</span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
+<span>        <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">t_tnr_ds</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">t_tnr_fds</span><span class="op">)</span></span>
+<span>        <span class="op">~</span> <span class="op">(</span><span class="va">t_tnr_ds</span> <span class="op">*</span> <span class="fl">5</span><span class="op">/</span><span class="fl">7</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">t_tnr_fds</span> <span class="op">*</span> <span class="fl">2</span><span class="op">/</span><span class="fl">7</span><span class="op">)</span>,</span>
+<span>        <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">t_tnr_ds</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">t_tnr_fds</span><span class="op">)</span></span>
+<span>        <span class="op">~</span> <span class="va">t_tnr_ds</span> <span class="op">*</span> <span class="fl">5</span><span class="op">/</span><span class="fl">7</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">t_tnr_ds</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">t_tnr_fds</span><span class="op">)</span></span>
+<span>        <span class="op">~</span> <span class="va">t_tnr_fds</span> <span class="op">*</span> <span class="fl">2</span><span class="op">/</span><span class="fl">7</span>,</span>
+<span>        <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA_real_</span></span>
+<span>      <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">ds_vars_tiempo</span>, <span class="va">fds_vars_tiempo</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Se unen las variables participación/tiempo a la base general y se eliminan columnas para evitar duplicados.</p>
+<div class="cell">
+<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">enut_auxiliar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_persona</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^[pt]_tnr_(ds|fds|dt)$"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">enut_tnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">enut_tnr</span>, y <span class="op">=</span> <span class="va">enut_auxiliar</span>,</span>
+<span>                      by <span class="op">=</span> <span class="st">"id_persona"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">enut_auxiliar</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ENUT_DATA</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"tnr_(ds|fds|dt)"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ENUT_DATA</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">enut_tnr</span>, by <span class="op">=</span> <span class="st">"id_persona"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">enut_tnr</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>El siguiente paso, es el diseño muestral complejo, para asegurar que los resultados sean representativos de la población. Para esto, se utiliza la función <code>svydesign</code> del paquete <code>survey</code>, especificando las variables de identificación de conglomerados, estratos y pesos muestrales correspondientes a la encuesta.</p>
+<div class="cell">
+<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">enut1</span> <span class="op">&lt;-</span> <span class="va">ENUT_DATA</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fe_cut</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">disenio</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">enut1</span>, strata <span class="op">=</span> <span class="op">~</span><span class="va">varstrat</span>,</span>
+<span>                             ids <span class="op">=</span> <span class="op">~</span><span class="va">varunit</span>, weights <span class="op">=</span> <span class="op">~</span><span class="va">fe_cut</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Se hizo una estimación poblacional de trabajo no remunerado, donde se calcula la participación y tiempo totales; participación y tiempo por sexo y, participación y tiempo por sexo y nacionalidad.</p>
+<div class="cell">
+<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Participación y tiempo totales </span></span>
+<span></span>
+<span><span class="va">part_tnr_pdn</span>  <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">p_tnr_dt</span>,</span>
+<span>                               by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span> <span class="op">+</span> <span class="va">pdn</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                               FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>,</span>
+<span>                               na.rm <span class="op">=</span> <span class="cn">TRUE</span>, vartype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"se"</span>, <span class="st">"cv"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tiemp_tnr_pdn</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">t_tnr_dt</span>,</span>
+<span>                               by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span> <span class="op">+</span> <span class="va">pdn</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                               FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>,</span>
+<span>                               na.rm <span class="op">=</span> <span class="cn">TRUE</span>, vartype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"se"</span>, <span class="st">"cv"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n_part</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">p_tnr_dt</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                        by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span> <span class="op">+</span> <span class="va">pdn</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                        FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svytotal</a></span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">part_total</span>  <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">p_tnr_dt</span>,</span>
+<span>                             by <span class="op">=</span> <span class="op">~</span><span class="va">pdn</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                             FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">tiemp_total</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">t_tnr_dt</span>,</span>
+<span>                             by <span class="op">=</span> <span class="op">~</span><span class="va">pdn</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                             FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">n_nac</span>       <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">p_tnr_dt</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                             by <span class="op">=</span> <span class="op">~</span><span class="va">pdn</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                             FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svytotal</a></span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">part_sexo</span>  <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">p_tnr_dt</span>,</span>
+<span>                            by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                            FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">tiemp_sexo</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">t_tnr_dt</span>,</span>
+<span>                            by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                            FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">part_gral</span>  <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span><span class="op">(</span><span class="op">~</span><span class="va">p_tnr_dt</span>, design <span class="op">=</span> <span class="va">disenio</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">tiemp_gral</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span><span class="op">(</span><span class="op">~</span><span class="va">t_tnr_dt</span>, design <span class="op">=</span> <span class="va">disenio</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">n_gral_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svytotal</a></span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">p_tnr_dt</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                                    design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span>                                    na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"I(p_tnr_dt == 1)TRUE"</span><span class="op">]</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Los códigos utilizados anteriormente son los códigos modificados para el análisis reproducible, pero basados en los códigos originales que se encuentran en el <em>Manual de uso de la base de datos</em>, por lo que se han adaptado para el proceso de reproducción pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del <em>Informe de Principales Resultados</em> de la ENUT, que no se encuentra en el <em>Manual de uso de la base de datos</em>, pero que se deriva a partir de los códigos originales.</p>
+<p>En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el <em>Manual de uso de la base de datos</em> funciona como diccionario y base metodológica para el procesamiento de los datos, la dificultad principal es que plantea el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios.</p>
+<p>Dentro de las dificultades, los códigos del <em>Manual de uso de base de datos</em> entregan una estructura determinada para el procesamiento, más no el código específico para tratar algunas variables. A su vez, el manual no provee una sola línea de código legible para el procesamiento de la base de datos, sino bloques pequeños que retratan acciones específicas para casos particulares. En otras palabras, la línea completa del código original es el resultado de la unión de varios bloques que se encuentran por separado, por tanto, la búsqueda y tratamiento de las variables de interés se torna compleja. En este caso, dado el tamaño y complejidad de la base de datos, se hizo difícil la selección de variables y su inclusión, por ejemplo, para la identificación de la variable tiempo, en el manual estaba incompleto, por tanto se hizo una búsqueda del nombre de la variable para tratarse como tal y se consultó a la IA, para desarrollar el código necesario para el tratamiento de esta variable en la respectiva reproducibilidad. A su vez, para la derivación de participación, el código no incluía la participación en días de semana completa, constituyéndose como variable central de toda la tabla, por tanto, se hizo necesario desarrollar el código mediante la IA, dado que sin ella (variable), ninguna estimación posterior podría haberse ejecutado. Otra dificulad encontrada es que no existe código que retrate la unión de las variables de interés a la base principal, sin este paso, el diseño muetral complejo no hubiese tenido acceso a las variables derivadas, el manual sólo hace la unión en bases temporales o paralelas. En último lugar, para reproducir la tabla específicamente, en las estimaciones poblacionales, sólo se tuvo que reemplazar “región” que es la variable original que el manual utiliza para la estimación por región, por “pdn” que es la variable de nacionalidad, para hacer las estimaciones de participación chilena versus extranjera.</p>
+</section><section id="reproducción" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="reproducción">
+<span class="header-section-number">3.2.2</span> Reproducción</h3>
+<div class="cell">
+<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Construcción de la tabla </span></span>
+<span><span class="va">fmt_hm</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">h</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span>
+<span>  <span class="va">mm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">h</span> <span class="op">-</span> <span class="va">hh</span><span class="op">)</span> <span class="op">*</span> <span class="fl">60</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%02d:%02d"</span>, <span class="va">hh</span>, <span class="va">mm</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">np</span>     <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">row</span><span class="op">)</span> <span class="va">n_part</span><span class="op">[</span><span class="va">row</span>, <span class="st">"I(p_tnr_dt == 1)TRUE"</span><span class="op">]</span></span>
+<span><span class="va">np_nac</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">row</span><span class="op">)</span> <span class="va">n_nac</span><span class="op">[</span><span class="va">row</span>,  <span class="st">"I(p_tnr_dt == 1)TRUE"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">tabla16</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  Nacionalidad <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Chile"</span>, <span class="st">"Extranjero"</span>, <span class="st">"Total"</span><span class="op">)</span>,</span>
+<span>  N_Hombre <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">np</span><span class="op">(</span><span class="st">"1.1"</span><span class="op">)</span>, <span class="fu">np</span><span class="op">(</span><span class="st">"1.2"</span><span class="op">)</span>,</span>
+<span>                            <span class="fu">np</span><span class="op">(</span><span class="st">"1.1"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">np</span><span class="op">(</span><span class="st">"1.2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                    big.mark <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>,</span>
+<span>  N_Mujer  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">np</span><span class="op">(</span><span class="st">"2.1"</span><span class="op">)</span>, <span class="fu">np</span><span class="op">(</span><span class="st">"2.2"</span><span class="op">)</span>,</span>
+<span>                            <span class="fu">np</span><span class="op">(</span><span class="st">"2.1"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">np</span><span class="op">(</span><span class="st">"2.2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                    big.mark <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>,</span>
+<span>  N_Total  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">np_nac</span><span class="op">(</span><span class="st">"1"</span><span class="op">)</span>, <span class="fu">np_nac</span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span>, <span class="va">n_gral_val</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                    big.mark <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>,</span>
+<span>  Part_Hombre <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"1.1"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                        <span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"1.2"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                        <span class="va">part_sexo</span><span class="op">[</span><span class="st">"1"</span>,  <span class="st">"p_tnr_dt"</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  Part_Mujer  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"2.1"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                        <span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"2.2"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                        <span class="va">part_sexo</span><span class="op">[</span><span class="st">"2"</span>,  <span class="st">"p_tnr_dt"</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  Part_Total  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">part_total</span><span class="op">[</span><span class="fl">1</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                        <span class="va">part_total</span><span class="op">[</span><span class="fl">2</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                        <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">part_gral</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  Tiemp_Hombre <span class="op">=</span> <span class="fu">fmt_hm</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"1.1"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                          <span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"1.2"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                          <span class="va">tiemp_sexo</span><span class="op">[</span><span class="st">"1"</span>,  <span class="st">"t_tnr_dt"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  Tiemp_Mujer  <span class="op">=</span> <span class="fu">fmt_hm</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"2.1"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                          <span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"2.2"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                          <span class="va">tiemp_sexo</span><span class="op">[</span><span class="st">"2"</span>,  <span class="st">"t_tnr_dt"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  Tiemp_Total  <span class="op">=</span> <span class="fu">fmt_hm</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tiemp_total</span><span class="op">[</span><span class="fl">1</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                          <span class="va">tiemp_total</span><span class="op">[</span><span class="fl">2</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>                          <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">tiemp_gral</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tabla16</span><span class="op">$</span><span class="va">Brecha_Part</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"2.1"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span> <span class="op">-</span> <span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"1.1"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>  <span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"2.2"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span> <span class="op">-</span> <span class="va">part_tnr_pdn</span><span class="op">[</span><span class="st">"1.2"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>,</span>
+<span>  <span class="va">part_sexo</span><span class="op">[</span><span class="st">"2"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span>      <span class="op">-</span> <span class="va">part_sexo</span><span class="op">[</span><span class="st">"1"</span>, <span class="st">"p_tnr_dt"</span><span class="op">]</span></span>
+<span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tabla16</span><span class="op">$</span><span class="va">Brecha_Tiemp</span> <span class="op">&lt;-</span> <span class="fu">fmt_hm</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"2.1"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span> <span class="op">-</span> <span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"1.1"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>  <span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"2.2"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span> <span class="op">-</span> <span class="va">tiemp_tnr_pdn</span><span class="op">[</span><span class="st">"1.2"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>,</span>
+<span>  <span class="va">tiemp_sexo</span><span class="op">[</span><span class="st">"2"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span>      <span class="op">-</span> <span class="va">tiemp_sexo</span><span class="op">[</span><span class="st">"1"</span>, <span class="st">"t_tnr_dt"</span><span class="op">]</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualización de la tabla</span></span>
+<span></span>
+<span><span class="va">tabla16</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span></span>
+<span>    Nacionalidad <span class="op">=</span> <span class="st">"Nacionalidad"</span>,</span>
+<span>    N_Hombre <span class="op">=</span> <span class="st">"Hombre"</span>, N_Mujer <span class="op">=</span> <span class="st">"Mujer"</span>, N_Total <span class="op">=</span> <span class="st">"Total"</span>,</span>
+<span>    Part_Hombre <span class="op">=</span> <span class="st">"Hombre"</span>, Part_Mujer <span class="op">=</span> <span class="st">"Mujer"</span>, Part_Total <span class="op">=</span> <span class="st">"Total"</span>,</span>
+<span>    Tiemp_Hombre <span class="op">=</span> <span class="st">"Hombre"</span>, Tiemp_Mujer <span class="op">=</span> <span class="st">"Mujer"</span>, Tiemp_Total <span class="op">=</span> <span class="st">"Total"</span>,</span>
+<span>    Brecha_Part <span class="op">=</span> <span class="st">"Part."</span>, Brecha_Tiemp <span class="op">=</span> <span class="st">"Tiempo"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Número de personas que participan (a)"</span>,</span>
+<span>              columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">N_Hombre</span>, <span class="va">N_Mujer</span>, <span class="va">N_Total</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Participación Día Tipo"</span>,</span>
+<span>              columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Part_Hombre</span>, <span class="va">Part_Mujer</span>, <span class="va">Part_Total</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Tiempo promedio Día Tipo"</span>,</span>
+<span>              columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Tiemp_Hombre</span>, <span class="va">Tiemp_Mujer</span>, <span class="va">Tiemp_Total</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Brechas (b)"</span>,</span>
+<span>              columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Brecha_Part</span>, <span class="va">Brecha_Tiemp</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html">md</a></span><span class="op">(</span><span class="st">"**Tabla 16**"</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad, en día tipo"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="va">Nacionalidad</span> <span class="op">==</span> <span class="st">"Total"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div id="hfmvnexvbm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hfmvnexvbm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hfmvnexvbm thead, #hfmvnexvbm tbody, #hfmvnexvbm tfoot, #hfmvnexvbm tr, #hfmvnexvbm td, #hfmvnexvbm th {
+  border-style: none;
+}
+
+#hfmvnexvbm p {
+  margin: 0;
+  padding: 0;
+}
+
+#hfmvnexvbm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#hfmvnexvbm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#hfmvnexvbm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#hfmvnexvbm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#hfmvnexvbm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#hfmvnexvbm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#hfmvnexvbm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#hfmvnexvbm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#hfmvnexvbm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#hfmvnexvbm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#hfmvnexvbm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#hfmvnexvbm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#hfmvnexvbm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#hfmvnexvbm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#hfmvnexvbm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hfmvnexvbm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#hfmvnexvbm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#hfmvnexvbm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#hfmvnexvbm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hfmvnexvbm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#hfmvnexvbm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hfmvnexvbm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#hfmvnexvbm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hfmvnexvbm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hfmvnexvbm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hfmvnexvbm .gt_left {
+  text-align: left;
+}
+
+#hfmvnexvbm .gt_center {
+  text-align: center;
+}
+
+#hfmvnexvbm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#hfmvnexvbm .gt_font_normal {
+  font-weight: normal;
+}
+
+#hfmvnexvbm .gt_font_bold {
+  font-weight: bold;
+}
+
+#hfmvnexvbm .gt_font_italic {
+  font-style: italic;
+}
+
+#hfmvnexvbm .gt_super {
+  font-size: 65%;
+}
+
+#hfmvnexvbm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#hfmvnexvbm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#hfmvnexvbm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#hfmvnexvbm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#hfmvnexvbm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hfmvnexvbm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hfmvnexvbm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#hfmvnexvbm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#hfmvnexvbm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<td colspan="12" class="gt_heading gt_title gt_font_normal"><strong>Tabla 16</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="12" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad, en día tipo</td>
+</tr>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="Nacionalidad" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Nacionalidad</th>
+<th colspan="3" id="Número de personas que participan (a)" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Número de personas que participan (a)
+</div></th>
+<th colspan="3" id="Participación Día Tipo" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Participación Día Tipo
+</div></th>
+<th colspan="3" id="Tiempo promedio Día Tipo" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Tiempo promedio Día Tipo
+</div></th>
+<th colspan="2" id="Brechas (b)" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Brechas (b)
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="N_Hombre" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Hombre</th>
+<th id="N_Mujer" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mujer</th>
+<th id="N_Total" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Total</th>
+<th id="Part_Hombre" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Hombre</th>
+<th id="Part_Mujer" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mujer</th>
+<th id="Part_Total" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Total</th>
+<th id="Tiemp_Hombre" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Hombre</th>
+<th id="Tiemp_Mujer" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mujer</th>
+<th id="Tiemp_Total" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Total</th>
+<th id="Brecha_Part" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Part.</th>
+<th id="Brecha_Tiemp" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Tiempo</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Nacionalidad">Chile</td>
+<td class="gt_row gt_right" headers="N_Hombre">6.359.131</td>
+<td class="gt_row gt_right" headers="N_Mujer">6.959.025</td>
+<td class="gt_row gt_right" headers="N_Total">13.318.156</td>
+<td class="gt_row gt_right" headers="Part_Hombre">95.8</td>
+<td class="gt_row gt_right" headers="Part_Mujer">98.3</td>
+<td class="gt_row gt_right" headers="Part_Total">97.1</td>
+<td class="gt_row gt_right" headers="Tiemp_Hombre">02:53</td>
+<td class="gt_row gt_right" headers="Tiemp_Mujer">04:59</td>
+<td class="gt_row gt_right" headers="Tiemp_Total">03:59</td>
+<td class="gt_row gt_right" headers="Brecha_Part">2.6</td>
+<td class="gt_row gt_right" headers="Brecha_Tiemp">02:06</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Nacionalidad">Extranjero</td>
+<td class="gt_row gt_right" headers="N_Hombre">596.388</td>
+<td class="gt_row gt_right" headers="N_Mujer">611.876</td>
+<td class="gt_row gt_right" headers="N_Total">1.208.264</td>
+<td class="gt_row gt_right" headers="Part_Hombre">95.8</td>
+<td class="gt_row gt_right" headers="Part_Mujer">99.3</td>
+<td class="gt_row gt_right" headers="Part_Total">97.5</td>
+<td class="gt_row gt_right" headers="Tiemp_Hombre">02:37</td>
+<td class="gt_row gt_right" headers="Tiemp_Mujer">04:42</td>
+<td class="gt_row gt_right" headers="Tiemp_Total">03:40</td>
+<td class="gt_row gt_right" headers="Brecha_Part">3.5</td>
+<td class="gt_row gt_right" headers="Brecha_Tiemp">02:06</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Nacionalidad" style="font-weight: bold">Total</td>
+<td class="gt_row gt_right" headers="N_Hombre" style="font-weight: bold">6.955.519</td>
+<td class="gt_row gt_right" headers="N_Mujer" style="font-weight: bold">7.570.901</td>
+<td class="gt_row gt_right" headers="N_Total" style="font-weight: bold">14.691.062</td>
+<td class="gt_row gt_right" headers="Part_Hombre" style="font-weight: bold">95.8</td>
+<td class="gt_row gt_right" headers="Part_Mujer" style="font-weight: bold">98.4</td>
+<td class="gt_row gt_right" headers="Part_Total" style="font-weight: bold">97.1</td>
+<td class="gt_row gt_right" headers="Tiemp_Hombre" style="font-weight: bold">02:52</td>
+<td class="gt_row gt_right" headers="Tiemp_Mujer" style="font-weight: bold">04:57</td>
+<td class="gt_row gt_right" headers="Tiemp_Total" style="font-weight: bold">03:57</td>
+<td class="gt_row gt_right" headers="Brecha_Part" style="font-weight: bold">2.6</td>
+<td class="gt_row gt_right" headers="Brecha_Tiemp" style="font-weight: bold">02:05</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section></section></section><section id="conclusiones" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Conclusiones</h1>
+<p>Basándose en el análisis realizado, escriban una conclusión sobre el nivel de reproducibilidad del artículo seleccionado.</p>
+</section><section id="recomendaciones" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> Recomendaciones</h1>
+<p>Recomendaciones para mejorar la reproducibilidad del artículo, si es necesario.</p>
+</section><section id="referencias" class="level1" data-number="6"><h1 data-number="6">
+<span class="header-section-number">6</span> Referencias</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-ineficha2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025a). <em><span>Ficha metodológica: II Encuesta sobre Uso del Tiempo 2023</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
+</div>
+<div id="ref-ineinforme2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025b). <em><span>Informe de principales resultados: II Encuesta Nacional sobre Uso del Tiempo (II ENUT)</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
+</div>
+<div id="ref-inemanual2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025c). <em><span>Manual de uso de la base de datos II ENUT: II Encuesta Nacional sobre Uso del Tiempo</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
+</div>
+<div id="ref-inedocumento2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025d). <em><span>Documento metodológico II ENUT: II Encuesta sobre Uso del Tiempo</span></em>.
+</div>
+<div id="ref-ineinforme2026" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2026). <em><span>Informe de Calidad II ENUT: II Encuesta sobre Uso del Tiempo</span></em>. Instituto Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
+</div>
+</div>
+</section><section id="apéndice" class="level1" data-number="7"><h1 data-number="7">
+<span class="header-section-number">7</span> Apéndice</h1>
+<section id="código" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="código">
+<span class="header-section-number">7.1</span> Código</h2>
+<p>A continuación, el código original que se encuentra en el Manual de Uso de Base de Datos. Como se menciona en el análisis, no es un código legible ni completo para el proceso de reproducción. Además, la línea completa es el resultado de la unión de varios bloques por lo que se hizo necesario adaptarlo y desarrollarlo.</p>
+<div class="cell">
+<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># PASO 2: Identificación de variables participación y tiempo ---- </span></span>
+<span><span class="co">## Variables de participación </span></span>
+<span><span class="va">ds_vars_part</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_p_ds$"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_p_ds$"</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_p_ds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="va">fds_vars_part</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_p_fds$"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_p_fds$"</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_p_fds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Variables de tiempo </span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_t(_n[1-4])?_ds$"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_t_ds$"</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_t_ds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">fds_vars_tiempo</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tc\\d*_t(_n[1-4])?_fds$"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^td\\d*_t_fds$"</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span><span class="st">"^tv\\d*_t_fds$"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># PASO 3: CREACIÓN DE BASE AUXILIAR ---- </span></span>
+<span></span>
+<span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_persona</span>, <span class="va">tiempo</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span>match <span class="op">=</span> <span class="va">ds_vars_part</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span>match <span class="op">=</span> <span class="va">fds_vars_part</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># PASO 4: DERIVAR VARIABLE DE PARTICIPACIÓN  ---- </span></span>
+<span></span>
 <span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">enut_auxiliar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -319,8 +1151,7 @@ div.csl-indent {
 <span>        <span class="cn">TRUE</span></span>
 <span>        <span class="op">~</span> <span class="cn">NA_real_</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span></span>
-<span><span class="co"># Derivación de tiempo</span></span>
+<span><span class="co"># PASO 5: DERIVACIÓN DE VARIABLE TIEMPO ----</span></span>
 <span></span>
 <span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -348,8 +1179,7 @@ div.csl-indent {
 <span>      <span class="co"># ...pero agrega el prefijo "temp_fds"</span></span>
 <span>      .names <span class="op">=</span> <span class="st">"temp_fds_{col}"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Cálculo de tiempo </span></span>
-<span></span>
+<span><span class="co">## CÁLCULO DE TIEMPO </span></span>
 <span><span class="va">enut_auxiliar</span> <span class="op">&lt;-</span> <span class="va">enut_auxiliar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>t_tnr_ds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"temp_ds_"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                            na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, t_tnr_ds <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">t_tnr_ds</span> <span class="op">==</span></span>
@@ -365,38 +1195,32 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_persona</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches</a></span><span class="op">(</span>match <span class="op">=</span> <span class="st">"^t\\_tnr\\_(ds|fds|dt)$"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">enut_tnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">enut_tnr</span>, y <span class="op">=</span> <span class="va">enut_auxiliar</span>,</span>
 <span>                      by <span class="op">=</span> <span class="st">"id_persona"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">enut_auxiliar</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<p>El siguiente paso, es el diseño muestral complejo, para asegurar que los resultados sean representativos de la población. Para esto, se utiliza la función <code>svydesign</code> del paquete <code>survey</code>, especificando las variables de identificación de conglomerados, estratos y pesos muestrales correspondientes a la encuesta.</p>
-<div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Diseño muestral complejo</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">enut_auxiliar</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Paso 7: Diseño muestral complejo ---- </span></span>
+<span></span>
 <span><span class="va">enut1</span> <span class="op">&lt;-</span> <span class="va">enut</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">tiempo</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">disenio</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">enut1</span>, strata <span class="op">=</span> <span class="op">~</span><span class="va">varstrat</span>,</span>
-<span>                             ids <span class="op">=</span> <span class="op">~</span><span class="va">varunit</span>, weights <span class="op">=</span> <span class="op">~</span><span class="va">fe_cut</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<p>Finalmente, se hizo una estimación poblacional de trabajo no remunerado, donde se calcula la participación y tiempo totales; participación y tiempo por sexo y, participación y tiempo por sexo y región, que posteriormente se reemplaza por nacionalidad.</p>
-<div class="cell">
-<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Participación y tiempo totales </span></span>
+<span>                             ids <span class="op">=</span> <span class="op">~</span><span class="va">varunit</span>, weights <span class="op">=</span> <span class="op">~</span><span class="va">fe_cut</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># PASO 8: ESTIMACIONES POBLACIONALES  ---- </span></span>
+<span></span>
+<span><span class="co">## Participación y tiempo totales </span></span>
 <span></span>
 <span><span class="va">part_tnr</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyciprop.html">svyciprop</a></span><span class="op">(</span><span class="op">~</span><span class="va">p_tnr_dt</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
 <span>                              na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">part_tnr</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>                2.5% 97.5%
-p_tnr_dt 0.971 0.968 0.974</code></pre>
-</div>
-<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tiemp_tnr</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span><span class="op">(</span><span class="op">~</span><span class="va">t_tnr_dt</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">part_tnr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tiemp_tnr</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span><span class="op">(</span><span class="op">~</span><span class="va">t_tnr_dt</span>, design <span class="op">=</span> <span class="va">disenio</span>,</span>
 <span>                             na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tiemp_tnr</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>           mean     SE
-t_tnr_dt 3.9579 0.0366</code></pre>
-</div>
-<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Participación y tiempo totales por sexo </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tiemp_tnr</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">## Participación y tiempo totales por sexo </span></span>
 <span></span>
 <span><span class="va">part_tnr_sexo</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">p_tnr_dt</span>,</span>
 <span>                               by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span>, design <span class="op">=</span> <span class="va">disenio</span>, FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/svyciprop.html">svyciprop</a></span>,</span>
@@ -404,138 +1228,24 @@ t_tnr_dt 3.9579 0.0366</code></pre>
 <span><span class="va">tiemp_tnr_sexo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">t_tnr_dt</span>, by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span>,</span>
 <span>                        design <span class="op">=</span> <span class="va">disenio</span>, FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                        vartype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"se"</span>, <span class="st">"cv"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tiemp_tnr_sexo</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>  sexo t_tnr_dt         se         cv
-1    1 2.869826 0.03958174 0.01379238
-2    2 4.958181 0.05124778 0.01033600</code></pre>
-</div>
-<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Participación por sexo y nacionalidad </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tiemp_tnr_sexo</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">## Participación por sexo y nacionalidad </span></span>
 <span></span>
 <span><span class="va">part_tnr_sexo_reg</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">p_tnr_dt</span>,</span>
 <span>                                   by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span> <span class="op">+</span> <span class="va">region_ord</span>, design <span class="op">=</span> <span class="va">disenio</span>, FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/svyciprop.html">svyciprop</a></span>,</span>
 <span>                                   na.rm <span class="op">=</span> <span class="cn">TRUE</span>, vartype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"se"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">part_tnr_sexo_reg</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>     sexo region_ord  p_tnr_dt se.as.numeric(p_tnr_dt)
-1.1     1          1 0.9148362             0.019084553
-2.1     2          1 0.9820889             0.005074131
-1.2     1          2 0.9078132             0.015677148
-2.2     2          2 0.9792094             0.005655072
-1.3     1          3 0.9343290             0.011435187
-2.3     2          3 0.9737882             0.006590428
-1.4     1          4 0.9499626             0.012928362
-2.4     2          4 0.9832558             0.005819195
-1.5     1          5 0.9670063             0.007281825
-2.5     2          5 0.9869111             0.003626440
-1.6     1          6 0.9728527             0.006079262
-2.6     2          6 0.9858047             0.003400934
-1.7     1          7 0.9672040             0.004979368
-2.7     2          7 0.9858814             0.002759547
-1.8     1          8 0.9294585             0.010547737
-2.8     2          8 0.9867008             0.004020368
-1.9     1          9 0.9278233             0.009104155
-2.9     2          9 0.9794782             0.003515485
-1.10    1         10 0.9654775             0.008422065
-2.10    2         10 0.9818100             0.005021815
-1.11    1         11 0.9411170             0.008723046
-2.11    2         11 0.9815255             0.003488072
-1.12    1         12 0.9517418             0.009027023
-2.12    2         12 0.9808567             0.004891060
-1.13    1         13 0.9859168             0.005966627
-2.13    2         13 0.9949671             0.003008825
-1.14    1         14 0.9666797             0.009019509
-2.14    2         14 0.9804918             0.006668743
-1.15    1         15 0.9366826             0.013357271
-2.15    2         15 0.9902643             0.004131135
-1.16    1         16 0.9314126             0.012427877
-2.16    2         16 0.9618613             0.008326027</code></pre>
-</div>
-<details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> <span class="co"># Se reemplaza región por nacionalidad </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">part_tnr_sexo_reg</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## se reemplaza región por nacionalidad </span></span>
 <span><span class="va">tiemp_tnr_sexo_reg</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="op">~</span><span class="va">t_tnr_dt</span>,</span>
-<span>        by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span> <span class="op">+</span> <span class="va">region_ord</span>, design <span class="op">=</span> <span class="va">disenio</span>, FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>,</span>
-<span>        vartype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"se"</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>                                    by <span class="op">=</span> <span class="op">~</span><span class="va">sexo</span> <span class="op">+</span> <span class="va">region_ord</span>, design <span class="op">=</span> <span class="va">disenio</span>, FUN <span class="op">=</span> <span class="fu">survey</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survey/man/surveysummary.html">svymean</a></span>,</span>
+<span>                                    vartype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"se"</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tiemp_tnr_sexo_reg</span><span class="op">)</span> </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>     sexo region_ord t_tnr_dt         se
-1.1     1          1 2.850786 0.13975338
-2.1     2          1 4.653895 0.19760710
-1.2     1          2 2.404220 0.11175726
-2.2     2          2 3.614407 0.12921005
-1.3     1          3 2.862225 0.12196770
-2.3     2          3 5.129005 0.16408447
-1.4     1          4 2.590251 0.14722794
-2.4     2          4 4.979465 0.18724234
-1.5     1          5 2.716663 0.11565787
-2.5     2          5 5.112602 0.13765565
-1.6     1          6 3.251623 0.11662914
-2.6     2          6 5.070209 0.11711986
-1.7     1          7 2.993520 0.07357981
-2.7     2          7 5.079991 0.10104013
-1.8     1          8 2.612966 0.12371833
-2.8     2          8 5.111210 0.15300452
-1.9     1          9 2.402540 0.08010501
-2.9     2          9 4.825131 0.11376794
-1.10    1         10 2.563895 0.10642784
-2.10    2         10 4.789528 0.15419285
-1.11    1         11 2.588808 0.10232444
-2.11    2         11 4.804254 0.12391061
-1.12    1         12 2.643547 0.16724013
-2.12    2         12 4.721063 0.13517862
-1.13    1         13 2.906624 0.12112146
-2.13    2         13 4.784996 0.15607664
-1.14    1         14 2.916807 0.13832274
-2.14    2         14 4.892955 0.18810307
-1.15    1         15 3.006978 0.14372831
-2.15    2         15 4.588947 0.17801715
-1.16    1         16 1.816797 0.09356889
-2.16    2         16 3.424260 0.12264021</code></pre>
+</details>
 </div>
-</div>
-<p>Los códigos utilizados anteriormente son los códigos originales y en “crudo” que se encuentran en el Manual de uso de la base de datos, por lo que se han adaptado para el proceso de reproducción, pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del Informe de Principales Resultados de la ENUT, que no se encuentra en el <em>Manual de Uso de la Base de Datos</em>, pero que se deriva a partir de los códigos originales.</p>
-<p>En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el <em>Manual de Uso de la Base de Datos</em> funciona como diccionario y base metodológica para el procesamiento de los datos, plantea así el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios.</p>
-<ul>
-<li>Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).</li>
-</ul></section><section id="reproducción" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="reproducción">
-<span class="header-section-number">3.2.2</span> Reproducción</h3>
-<ul>
-<li>Generación de tabla o figura a reproducir.</li>
-</ul></section></section></section><section id="conclusiones" class="level1" data-number="4"><h1 data-number="4">
-<span class="header-section-number">4</span> Conclusiones</h1>
-<p>Basándose en el análisis realizado, escriban una conclusión sobre el nivel de reproducibilidad del artículo seleccionado.</p>
-</section><section id="recomendaciones" class="level1" data-number="5"><h1 data-number="5">
-<span class="header-section-number">5</span> Recomendaciones</h1>
-<p>Recomendaciones para mejorar la reproducibilidad del artículo, si es necesario.</p>
-</section><section id="referencias" class="level1" data-number="6"><h1 data-number="6">
-<span class="header-section-number">6</span> Referencias</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-ineficha2025" class="csl-entry" role="listitem">
-Instituto Nacional de Estadísticas. (2025a). <em><span>Ficha metodológica: II Encuesta sobre Uso del Tiempo 2023</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
-</div>
-<div id="ref-ineinforme2025" class="csl-entry" role="listitem">
-Instituto Nacional de Estadísticas. (2025b). <em><span>Informe de principales resultados: II Encuesta Nacional sobre Uso del Tiempo (II ENUT)</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
-</div>
-<div id="ref-inemanual2025" class="csl-entry" role="listitem">
-Instituto Nacional de Estadísticas. (2025c). <em><span>Manual de uso de la base de datos II ENUT: II Encuesta Nacional sobre Uso del Tiempo</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
-</div>
-<div id="ref-inedocumento2025" class="csl-entry" role="listitem">
-Instituto Nacional de Estadísticas. (2025d). <em><span>Documento metodológico II ENUT: II Encuesta sobre Uso del Tiempo</span></em>.
-</div>
-<div id="ref-ineinforme2026" class="csl-entry" role="listitem">
-Instituto Nacional de Estadísticas. (2026). <em><span>Informe de Calidad II ENUT: II Encuesta sobre Uso del Tiempo</span></em>. Instituto Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
-</div>
-</div>
-</section><section id="apéndice" class="level1" data-number="7"><h1 data-number="7">
-<span class="header-section-number">7</span> Apéndice</h1>
-<section id="material-suplementario" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="material-suplementario">
-<span class="header-section-number">7.1</span> Material suplementario</h2>
-<ul>
-<li>Incluyan aquí detalles metodológicos adicionales, en caso de ser necesario</li>
-</ul></section><section id="código" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="código">
-<span class="header-section-number">7.2</span> Código</h2>
-<ul>
-<li>Incluir acá el código original, en caso de estar disponible.</li>
-</ul></section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
