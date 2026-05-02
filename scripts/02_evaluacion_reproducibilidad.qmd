@@ -1,7 +1,7 @@
 # Evaluación de reproducibilidad
   -   **Disponibilidad de datos**: ¿El artículo proporciona acceso a los datos utilizados en el estudio? Si no es así, ¿qué dificultades se enfrentaron para obtener los datos?
 
-Sí, el artículo proporciona acceso a los datos utilizados en el estudio. Los datos están disponibles a través del sitio web del Instituto Nacional de Estadística de Chile, donde se pueden descargar en variados formatos. No hubieron dificultades para obtener los datos, ya que el acceso es público y se encuentra claramente indicado en la página web. Además, el artículo incluye un enlace directo a la sección de descarga de datos.   
+ Sí, el artículo proporciona acceso a los datos utilizados en el estudio. Los datos están disponibles a través del sitio web del Instituto Nacional de Estadística de Chile, donde se pueden descargar en variados formatos. No hubieron dificultades para obtener los datos, ya que el acceso es público y se encuentra claramente indicado en la página web. Además, el artículo incluye un enlace directo a la sección de descarga de datos.   
 
   -   **Disponibilidad de código**: 
 
