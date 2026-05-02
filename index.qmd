@@ -16,6 +16,8 @@ affiliations:
 date: "05-04-2026"
 lang: "es"
 fontsize: 13pt
+nocite: |
+  @inemanual2025
 format:
   html:
     code-fold: true
@@ -66,26 +68,263 @@ En ese sentido, desde el informe de principales resultados de la encuesta, hemos
 # Evaluación de reproducibilidad
 
   -   **Disponibilidad de datos**: 
-  El artículo sí proporciona acceso a los datos utilizados en el estudio. Los datos están disponibles a través del sitio web del Instituto Nacional de Estadística de Chile, donde se pueden descargar en variados formatos. No hubo dificultades para obtener los datos, ya que el acceso es público y se encuentra claramente indicado en la página web. Además, el artículo incluye un enlace directo a la sección de descarga de datos.   
+  El artículo sí proporciona acceso a los datos utilizados en el estudio. Los datos están disponibles a través del sitio web del [Instituto Nacional de Estadística de Chile](https://www.ine.gob.cl/enut), donde se pueden descargar en variados formatos. No hubo dificultades para obtener los datos, ya que el acceso es público y se encuentra claramente indicado en la página web. Además, el artículo incluye un enlace directo a la sección de descarga de datos.   
   -   **Disponibilidad de código**: 
-  No obstante, el artículo no proporciona acceso al código para el análisis. Sin embargo, en el *Manual de Uso de base de datos* se describen las variables y se entrega de manera robusta el flujo de trabajo que se llevó a cabo para procesar correctamente los microdatos de la encuesta, lo que puede ser de gran ayuda para la replicabilidad. En ese sentido, se especifica la organización de la estructura de la base de datos; librerías necesarias para el procesamiento y la limpieza; metodología para la construcción de indicadores complejos a partir de las preguntas base del cuestionario y, por último, el diseño muestral complejo para asegurar resultados representativos. A pesar de esto, la falta de acceso al código específico utilizado en el estudio dificulta la replicación exacta del análisis realizado, por lo que se utilizarán códigos propios para el proceso de reproducción.  
+  No obstante, el artículo no proporciona acceso al código para el análisis. Sin embargo, en el [Manual de Uso de base de datos](#ref-inemanual2025) se describen las variables y se entrega de manera robusta el flujo de trabajo que se llevó a cabo para procesar correctamente los microdatos de la encuesta, lo que puede ser de gran ayuda para la replicabilidad. En ese sentido, se especifica la organización de la estructura de la base de datos; librerías necesarias para el procesamiento y la limpieza; metodología para la construcción de indicadores complejos a partir de las preguntas base del cuestionario y, por último, el diseño muestral complejo para asegurar resultados representativos. A pesar de esto, la falta de acceso al código específico utilizado en el estudio dificulta la replicación exacta del análisis realizado, por lo que se utilizarán códigos propios para el proceso de reproducción.  
   -   **Documentación**: 
-    Existe una descripción clara de los métodos y procedimientos utilizados en el estudio, especialmente en el *Documento Metodológico*. En el *Capítulo 5*, el @inedocumento2025 detalla el diseño estadístico, brindando todas las informaciones necesarias 
-  -   **Transparencia**: ¿El artículo proporciona información sobre los posibles conflictos de interés, financiamiento, y otros aspectos relacionados con la transparencia de la investigación?   
+    Existe una descripción clara de los métodos y procedimientos utilizados en el estudio, especialmente en el *Documento Metodológico*. En el *Capítulo 5*, el @inedocumento2025 detalla el diseño estadístico, brindando todas las informaciones necesarias tales como el marco y diseño muestral, la estrategias de muestreo aplicada, factores de expansión, y más. Asimismo, el *Capítulo 6* nos entrega la metodología de recolección de datos y el *Capítulo 7*, la metodología de procesamiento de datos. En conjunto, estos capítulos y el documento como tal, además del @ineinforme2026 en el cual se transparentan los errores no muestrales y las tasas de respuesta por región. Con todo esto, se puede afirmar que la documentación es suficiente para que otro investigador pueda replicar el estudio, aunque la falta de acceso al código específico utilizado en el análisis puede presentar un desafío adicional para la replicación exacta. 
+  -   **Transparencia**: 
+  En torno a la transparencia de la investigación, el Instituto Nacional de Estadística de Chile [-@ineinforme2025] identifica en sus primeras páginas todos los nombres y cargos de los responsables del proyecto. Asimismo, proporciona información sobre el financiamiento del estudio, indicando que fue financiado por el Instituto Nacional de Estadística de Chile. Por otra parte, la sección *2.1. Instrumentos de medición*, señala que se utiliza la plataforma *Survey Solutions* del Banco Central lo cual podría reforzar la transparencia en el manejo de los datos y de su recolección. Sin embargo, no se menciona explícitamente si existen o podrían existir conflictos de interés relacionados con el estudio. De todas formas, la primera versión de esta encuesta "permitió la implementación y mejora de políticas públicas en el país relativas principalmente a la promoción de la autonomía económica de las mujeres en el país" [@ineinforme2025], con lo que se puede interpretar que esta segunda versión también contribuirá a esos fines, lo que podría ser un indicio de que no existen conflictos de interés o la intención de beneficiar a ciertos grupos específicos, sino brindar datos para la búsqueda de una sociedad con igualdad de género. 
+
 
 # Análisis reproducible
-Seleccionar un resultado específico del artículo (por ejemplo, una tabla de resultados o una figura) y tratar de reproducirlo utilizando los datos y el código proporcionados. Documentar el proceso de reproducción, incluyendo cualquier dificultad encontrada y cómo se resolvió.
 
 ## Resultado a reproducir
-- Imagen de tabla(s), figura(s) o resultado específico del artículo seleccionado, junto a una breve descripción.
+Para el análisis reproducible se seleccionó la Tabla 16 del [Informe de Principales Resultados](#ref-ineinforme2025) de la ENUT, que muestra la participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad en día tipo. 
+![Tabla 16: Participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad en día tipo](input/images/Tabla16.png)
 
 ## Proceso de reproducción
-
-- Descripción detallada del proceso seguido para reproducir el resultado seleccionado, incluyendo los pasos realizados, las herramientas utilizadas, y cualquier ajuste necesario para lograr la reproducción. Incluye las siguientes sub secciones:
+Para el procesamiento, limpieza y cálculos de variables, se utilizó el *Manual de Uso de Base de Datos*, que proporciona una descripción detallada de la estructura de la base de datos y las variables disponibles. En ese sentido, se identificaron las líneas de código necesarias que, a continuación, se presentan para el proceso de reproducción.
 
 ### Procesamiento
-
 - Incluye el código utilizado para procesar los datos, junto con una explicación de cada paso. 
+
+En primer lugar, se cargan las librerias necesarias para el procesamiento de los datos y se descarga la bases de datos (que se encuentra en input, data, original), para luego hacer la identificación de las variables de interés, que en este caso son las variables de participación y tiempo destinado al trabajo no remunerado, tanto para día tipo como para fin de semana. 
+
+```{r}
+#| label: limpieza de datos
+
+# Cargar librerías necesarias
+library(tidyverse)
+library(haven)
+library(survey)
+library(gt)
+
+# Cargar datos
+enut <- readRDS("input/data/original/250403-ii-enut-bdd-r-v2.RDS")
+
+# Selección de variables 
+## Variables de participación 
+ds_vars_part <- enut %>%
+  select(matches("^tc\\d*_p_ds$"), 
+         matches("^td\\d*_p_ds$"),
+         matches("^tv\\d*_p_ds$")) %>%
+  names()
+ 
+fds_vars_part <- enut %>%
+  select(matches("^tc\\d*_p_fds$"), 
+         matches("^td\\d*_p_fds$"),
+         matches("^tv\\d*_p_fds$")) %>%
+  names()
+
+## Variables de tiempo 
+ds_vars_tiempo <- enut %>%
+  select(matches("^tc\\d*_t(_n[1-4])?_ds$"), 
+         matches("^td\\d*_t_ds$"),
+         matches("^tv\\d*_t_ds$")) %>%
+  names()
+
+  fds_vars_tiempo <- enut %>%
+  select(matches("^tc\\d*_t(_n[1-4])?_fds$"), 
+         matches("^td\\d*_t_fds$"),
+         matches("^tv\\d*_t_fds$")) %>%
+  names()
+
+```
+
+ Se crea una base auxiliar que contiene únicamente la identificación de la persona, en base a si contestó o no el cuestionario, pero sin alterar la base original. 
+
+ ```{r}
+ #| label: base auxiliar
+
+ enut_auxiliar <- enut %>%
+  select(id_persona, tiempo,
+         all_of(ds_vars_part), 
+         all_of(fds_vars_part),
+         all_of(ds_vars_tiempo), 
+         all_of(fds_vars_tiempo))
+
+enut_tnr <- enut %>% select(id_persona) 
+
+ ```
+
+Posteriormente, se procede a derivar las variables de participación y tiempo. Por un lado, en participación, el código pretende escanear todas las actividades de trabajo no remunerado de cada persona, con el tratamiento de casos perdidos correspondiente en caso de no responder la pregunta, si el dato no existe o no aplica. Finalmente, se crea la participación de día tipo en base a si la persona participa en al menos una de las actividades de cuidado, domésticas o voluntarias o no. Por otro lado, en la variable de tiempo, se crean columnas temporales para que los datos perdidos no afecten las sumas de tiempo. Luego, se calcula el tiempo total destinado al trabajo no remunerado, ponderando el tiempo de día tipo por 5/7 y el tiempo de fin de semana por 2/7, para obtener una medida más representativa del tiempo semanal destinado a estas actividades.
+
+```{r}
+#| label: derivación variables
+
+# Derivación de participación 
+enut_auxiliar <-
+  enut_auxiliar %>%
+  mutate(
+    p_tnr_ds =
+      case_when(
+        # Cuando no hay CUT, asigna NA
+        tiempo == 0
+        ~ NA_real_,
+        # Si todos los valores son 96, asigna 96
+        across(
+          all_of(ds_vars_part),
+          ~ . == 96) %>%
+          rowSums(na.rm = TRUE) == length(ds_vars_part)
+        ~ 96,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es mayor a 0, asigna 1
+        rowSums(
+          across(
+            all_of(ds_vars_part), ~ . == 1),
+          na.rm = TRUE) > 0
+        ~ 1,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es igual a 0, asigna 0
+        rowSums(
+          across(
+            all_of(ds_vars_part), ~ . == 1),
+          na.rm = TRUE) == 0
+        ~ 0,
+        # En cualquier otro escenario, asigna NA
+        TRUE
+        ~ NA_real_))
+
+enut_auxiliar <-
+  enut_auxiliar %>%
+  mutate(
+    p_tnr_fds =
+      case_when(
+        # Cuando no hay CUT, asigna NA
+        tiempo == 0
+        ~ NA_real_,
+        # Si todos los valores son 96, asigna 96
+        across(
+          all_of(fds_vars_part),
+          ~ . == 96) %>%
+          rowSums(na.rm = TRUE) == length(fds_vars_part)
+        ~ 96,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es mayor a 0, asigna 1
+        rowSums(
+          across(
+            all_of(fds_vars_part), ~ . == 1),
+          na.rm = TRUE) > 0
+        ~ 1,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es igual a 0, asigna 0
+        rowSums(
+          across(
+            all_of(fds_vars_part), ~ . == 1),
+          na.rm = TRUE) == 0
+        ~ 0,
+        # En cualquier otro escenario, asigna NA
+        TRUE
+        ~ NA_real_))
+
+
+# Derivación de tiempo
+
+enut_auxiliar <-
+  enut %>%
+  select(id_persona,
+         tiempo,
+         matches(match=ds_vars_tiempo),
+         matches(match=fds_vars_tiempo))
+enut_auxiliar <-
+  enut_auxiliar %>%
+  mutate(
+    across(
+      # En todas las variables de ds_vars_tiempo...
+      all_of(ds_vars_tiempo),
+      # ... si la variable toma el valor 96 o 0, asigna NA
+      ~ replace(., . == 96 | . == 0, NA),
+      # Guarda esto en una columna con el mismo nombre...
+      # ...pero agrega el prefijo "temp_ds"
+      .names = "temp_ds_{col}"),
+    across(
+      # En todas las variables de fds_vars_tiempo...
+      all_of(fds_vars_tiempo),
+      # ...si la variable toma el valor 96 o 0, asigna NA
+      ~ replace(., . == 96 | . == 0, NA),
+      # Guarda esto en una columna con el mismo nombre...
+      # ...pero agrega el prefijo "temp_fds"
+      .names = "temp_fds_{col}"))
+
+# Cálculo de tiempo 
+
+enut_auxiliar <- enut_auxiliar %>%
+  mutate(t_tnr_ds = rowSums(across(starts_with("temp_ds_")),
+                            na.rm = TRUE), t_tnr_ds = if_else(t_tnr_ds ==
+                                                                0, NA_real_, t_tnr_ds), t_tnr_fds = rowSums(across(starts_with("temp_fds_")),
+                                                                                                            na.rm = TRUE), t_tnr_fds = if_else(t_tnr_fds ==
+                                                                                                                                                 0, NA_real_, t_tnr_fds))
+enut_auxiliar <- enut_auxiliar %>%
+  mutate(t_tnr_dt = if_else(!is.na(t_tnr_ds) & !is.na(t_tnr_fds),
+                            (t_tnr_ds * 5/7) + (t_tnr_fds * 2/7), coalesce(t_tnr_ds *
+                                                                             5/7, t_tnr_fds * 2/7)))
+rm(ds_vars_tiempo, fds_vars_tiempo) # Limpiar ambiente global
+enut_auxiliar <- enut_auxiliar %>%
+  select(id_persona, matches(match = "^t\\_tnr\\_(ds|fds|dt)$"))
+enut_tnr <- left_join(x = enut_tnr, y = enut_auxiliar,
+                      by = "id_persona")
+rm(enut_auxiliar)
+```
+
+El siguiente paso, es el diseño muestral complejo, para asegurar que los resultados sean representativos de la población. Para esto, se utiliza la función `svydesign` del paquete `survey`, especificando las variables de identificación de conglomerados, estratos y pesos muestrales correspondientes a la encuesta. 
+
+```{r}
+#| label: diseño muestral complejo
+
+# Diseño muestral complejo
+enut1 <- enut %>%
+  filter(tiempo == 1)
+
+disenio <- survey::svydesign(data = enut1, strata = ~varstrat,
+                             ids = ~varunit, weights = ~fe_cut)
+```
+
+Finalmente, se hizo una estimación poblacional de trabajo no remunerado, donde se calcula la participación y tiempo totales; participación y tiempo por sexo y, participación y tiempo por sexo y región, que posteriormente se reemplaza por nacionalidad.
+
+```{r}
+#| label: estimaciones poblacionales
+
+# Participación y tiempo totales 
+
+part_tnr <- survey::svyciprop(~p_tnr_dt, design = disenio,
+                              na.rm = TRUE)
+print(part_tnr)
+
+tiemp_tnr <- survey::svymean(~t_tnr_dt, design = disenio,
+                             na.rm = TRUE)
+print(tiemp_tnr)
+
+
+# Participación y tiempo totales por sexo 
+
+part_tnr_sexo <- survey::svyby(formula = ~p_tnr_dt,
+                               by = ~sexo, design = disenio, FUN = survey::svyciprop,
+                               na.rm = TRUE, vartype = c("se", "cv"))
+tiemp_tnr_sexo <- svyby(formula = ~t_tnr_dt, by = ~sexo,
+                        design = disenio, FUN = survey::svymean, na.rm = TRUE,
+                        vartype = c("se", "cv"))
+print(tiemp_tnr_sexo)
+
+
+# Participación por sexo y nacionalidad 
+
+part_tnr_sexo_reg <- survey::svyby(formula = ~p_tnr_dt,
+                                   by = ~sexo + region_ord, design = disenio, FUN = survey::svyciprop,
+                                   na.rm = TRUE, vartype = c("se"))
+print(part_tnr_sexo_reg)
+
+ # Se reemplaza región por nacionalidad 
+tiemp_tnr_sexo_reg <- survey::svyby(formula = ~t_tnr_dt,
+        by = ~sexo + region_ord, design = disenio, FUN = survey::svymean,
+        vartype = c("se"), na.rm = TRUE)
+print(tiemp_tnr_sexo_reg) 
+```
+
+Los códigos utilizados anteriormente son los códigos originales y en "crudo" que se encuentran en el Manual de uso de la base de datos, por lo que se han adaptado para el proceso de reproducción, pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del Informe de Principales Resultados de la ENUT, que no se encuentra en el *Manual de Uso de la Base de Datos*, pero que se deriva a partir de los códigos originales. 
+
+En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el *Manual de Uso de la Base de Datos* funciona como diccionario y base metodológica para el procesamiento de los datos, plantea así el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios. 
+
 
 - Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).
 
