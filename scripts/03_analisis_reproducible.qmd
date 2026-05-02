@@ -38,7 +38,7 @@ fds_vars_part <- enut %>%
 
 ```
 
- Se crea una base auxiliar que contiene únicamente la identificacion de la persona, en base a si contesto o no el cuestionario, pero sin alterar la base original. 
+ Se crea una base auxiliar que contiene únicamente la identificacion de la persona, en base a si contestó o no el cuestionario, pero sin alterar la base original. 
 
 ```{r}
 enut_auxiliar <- enut %>%

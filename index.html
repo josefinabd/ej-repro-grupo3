@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.36">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Josefina Bustos">
 <meta name="author" content="Benjamin Casacuberta">
-
 <title>Reporte de Reproducibilidad</title>
 <style>
 /* Default styles provided by pandoc.
@@ -29,6 +26,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -46,7 +44,6 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
 <script src="index_files/libs/clipboard/clipboard.min.js"></script>
 <script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -57,23 +54,18 @@ div.csl-indent {
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-15fe1e483d0269a17ac037d2fcf7f448.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<style>
+<link href="index_files/libs/bootstrap/bootstrap-15fe1e483d0269a17ac037d2fcf7f448.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><style>
   h1.title {
     color: #ffffff !important;
   }
   .subtitle {
     color: #ffffff !important;
-  }x
+  }
 </style>
-
-
 </head>
-
 <body class="quarto-light">
 
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Reporte de Reproducibilidad</h1>
             <p class="subtitle lead">Artículo: II Encuesta Nacional sobre Uso del Tiempo (ENUT 2023) <br><a href="https://github.com/josefinabd/ej-repro-grupo3" target="_blank"><i class="bi bi-github"></i></a></p>
@@ -108,7 +100,7 @@ div.csl-indent {
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">5 de abril de 2026</p>
+        <p class="date">4 de mayo de 2026</p>
       </div>
     </div>
     
@@ -118,114 +110,112 @@ div.csl-indent {
   
   </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
-    <h2 id="toc-title">Contenidos</h2>
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2"><h2 id="toc-title">Contenidos</h2>
    
   <ul class="collapse">
-  <li><a href="#selección-de-artículoreporte" id="toc-selección-de-artículoreporte" class="nav-link active" data-scroll-target="#selección-de-artículoreporte"><span class="header-section-number">1</span> Selección de artículo/reporte</a></li>
-  <li><a href="#evaluación-de-reproducibilidad" id="toc-evaluación-de-reproducibilidad" class="nav-link" data-scroll-target="#evaluación-de-reproducibilidad"><span class="header-section-number">2</span> Evaluación de reproducibilidad</a></li>
-  <li><a href="#análisis-reproducible" id="toc-análisis-reproducible" class="nav-link" data-scroll-target="#análisis-reproducible"><span class="header-section-number">3</span> Análisis reproducible</a>
+<li><a href="#selecci%C3%B3n-de-art%C3%ADculo" id="toc-selección-de-artículo" class="nav-link active" data-scroll-target="#selecci%C3%B3n-de-art%C3%ADculo"><span class="header-section-number">1</span> Selección de artículo</a></li>
+  <li><a href="#evaluaci%C3%B3n-de-reproducibilidad" id="toc-evaluación-de-reproducibilidad" class="nav-link" data-scroll-target="#evaluaci%C3%B3n-de-reproducibilidad"><span class="header-section-number">2</span> Evaluación de reproducibilidad</a></li>
+  <li>
+<a href="#an%C3%A1lisis-reproducible" id="toc-análisis-reproducible" class="nav-link" data-scroll-target="#an%C3%A1lisis-reproducible"><span class="header-section-number">3</span> Análisis reproducible</a>
   <ul class="collapse">
-  <li><a href="#resultado-a-reproducir" id="toc-resultado-a-reproducir" class="nav-link" data-scroll-target="#resultado-a-reproducir"><span class="header-section-number">3.1</span> Resultado a reproducir</a></li>
-  <li><a href="#proceso-de-reproducción" id="toc-proceso-de-reproducción" class="nav-link" data-scroll-target="#proceso-de-reproducción"><span class="header-section-number">3.2</span> Proceso de reproducción</a></li>
-  </ul></li>
+<li><a href="#resultado-a-reproducir" id="toc-resultado-a-reproducir" class="nav-link" data-scroll-target="#resultado-a-reproducir"><span class="header-section-number">3.1</span> Resultado a reproducir</a></li>
+  <li><a href="#proceso-de-reproducci%C3%B3n" id="toc-proceso-de-reproducción" class="nav-link" data-scroll-target="#proceso-de-reproducci%C3%B3n"><span class="header-section-number">3.2</span> Proceso de reproducción</a></li>
+  </ul>
+</li>
   <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones"><span class="header-section-number">4</span> Conclusiones</a></li>
   <li><a href="#recomendaciones" id="toc-recomendaciones" class="nav-link" data-scroll-target="#recomendaciones"><span class="header-section-number">5</span> Recomendaciones</a></li>
   <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias"><span class="header-section-number">6</span> Referencias</a></li>
-  <li><a href="#apéndice" id="toc-apéndice" class="nav-link" data-scroll-target="#apéndice"><span class="header-section-number">7</span> Apéndice</a>
+  <li>
+<a href="#ap%C3%A9ndice" id="toc-apéndice" class="nav-link" data-scroll-target="#ap%C3%A9ndice"><span class="header-section-number">7</span> Apéndice</a>
   <ul class="collapse">
-  <li><a href="#material-suplementario" id="toc-material-suplementario" class="nav-link" data-scroll-target="#material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</a></li>
-  <li><a href="#código" id="toc-código" class="nav-link" data-scroll-target="#código"><span class="header-section-number">7.2</span> Código</a></li>
-  </ul></li>
+<li><a href="#material-suplementario" id="toc-material-suplementario" class="nav-link" data-scroll-target="#material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</a></li>
+  <li><a href="#c%C3%B3digo" id="toc-código" class="nav-link" data-scroll-target="#c%C3%B3digo"><span class="header-section-number">7.2</span> Código</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</li>
+  </ul><div class="quarto-alternate-formats"><h2>Otros formatos</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
-<main class="content quarto-banner-title-block" id="quarto-document-content">
-
-
-
-
-
-<section id="selección-de-artículoreporte" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Selección de artículo/reporte</h1>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="selección-de-artículo" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Selección de artículo</h1>
+<p>El artículo seleccionado para el análisis de reproducibilidad es la segunda Encuesta Nacional sobre Uso de Tiempo (ENUT), publicada por el Instituto Nacional de Estadística en Chile. Esta encuesta permite conocer cómo las personas distribuyen su tiempo entre diferentes actividades, como trabajo, estudio, ocio, entre otras.</p>
+<p>El objetivo general de la encuesta es “obtener información de cómo las personas de 12 años o más utilizan su tiempo, principalmente en torno al trabajo no remunerado, trabajo en la ocupación y actividades personales; además de proveer información relacionada a su calidad de vida y bienestar respecto a su uso de tiempo en las principales zonas urbanas del país” <span class="citation" data-cites="ineficha2025">(<a href="#ref-ineficha2025" role="doc-biblioref">Instituto Nacional de Estadísticas, 2025a</a>)</span>.</p>
+<p>Entre los objetivos específicos se encuentra: identificar brechas de género, medición de carga laboral a través del tiempo dedicado a la ocupación y trabajo no remunerado, medir uso de tiempo y satisfacción de la población, y por último, identificar acceso y necesidad de servicios e instituciones de cuidado para la población dependiente.</p>
+<p>Para el reporte de reproducibilidad, se escoge este artículo con el propósito de tener una base de datos amplia y detallada sobre el uso del tiempo en la población chilena, lo que nos permitirá realizar un análisis reproducible significativo y relevante. Además, la encuesta proporciona una gran cantidad de variables y resultados que pueden ser utilizados para explorar diferentes aspectos del uso del tiempo (como los presentados en los objetivos de la encuesta) lo que nos permitirá profundizar en el análisis y obtener insights valiosos sobre las actividades diarias de las personas.</p>
+<p>En ese sentido, desde el informe de principales resultados de la encuesta, hemos escogido la tabla 16 que muestra la participación y tiempo destinado al trabajo no remunerado según sexo y nacionalidad.</p>
+</section><section id="evaluación-de-reproducibilidad" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Evaluación de reproducibilidad</h1>
 <ul>
-<li>Referencia del artículo seleccionado</li>
-<li>Breve resumen del artículo seleccionado</li>
-<li>Justificación de la selección del artículo</li>
-</ul>
-</section>
-<section id="evaluación-de-reproducibilidad" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Evaluación de reproducibilidad</h1>
-<p>Análisis detallado del artículo seleccionado, evaluando los siguientes aspectos:</p>
+<li>
+<strong>Disponibilidad de datos</strong>: El artículo sí proporciona acceso a los datos utilizados en el estudio. Los datos están disponibles a través del sitio web del <a href="https://www.ine.gob.cl/enut">Instituto Nacional de Estadística de Chile</a>, donde se pueden descargar en variados formatos. No hubo dificultades para obtener los datos, ya que el acceso es público y se encuentra claramente indicado en la página web. Además, el artículo incluye un enlace directo a la sección de descarga de datos.<br>
+</li>
+<li>
+<strong>Disponibilidad de código</strong>: No obstante, el artículo no proporciona acceso al código para el análisis. Sin embargo, en el <a href="#ref-inemanual2025">Manual de Uso de base de datos</a> se describen las variables y se entrega de manera robusta el flujo de trabajo que se llevó a cabo para procesar correctamente los microdatos de la encuesta, lo que puede ser de gran ayuda para la replicabilidad. En ese sentido, se especifica la organización de la estructura de la base de datos; librerías necesarias para el procesamiento y la limpieza; metodología para la construcción de indicadores complejos a partir de las preguntas base del cuestionario y, por último, el diseño muestral complejo para asegurar resultados representativos. A pesar de esto, la falta de acceso al código específico utilizado en el estudio dificulta la replicación exacta del análisis realizado, por lo que se utilizarán códigos propios para el proceso de reproducción.<br>
+</li>
+<li>
+<strong>Documentación</strong>: Existe una descripción clara de los métodos y procedimientos utilizados en el estudio, especialmente en el <em>Documento Metodológico</em>. En el <em>Capítulo 5</em>, el <span class="citation" data-cites="inedocumento2025">Instituto Nacional de Estadísticas (<a href="#ref-inedocumento2025" role="doc-biblioref">2025d</a>)</span> detalla el diseño estadístico, brindando todas las informaciones necesarias tales como el marco y diseño muestral, la estrategias de muestreo aplicada, factores de expansión, y más. Asimismo, el <em>Capítulo 6</em> nos entrega la metodología de recolección de datos y el <em>Capítulo 7</em>, la metodología de procesamiento de datos. En conjunto, estos capítulos y el documento como tal, además del <span class="citation" data-cites="ineinforme2026">Instituto Nacional de Estadísticas (<a href="#ref-ineinforme2026" role="doc-biblioref">2026</a>)</span> en el cual se transparentan los errores no muestrales y las tasas de respuesta por región. Con todo esto, se puede afirmar que la documentación es suficiente para que otro investigador pueda replicar el estudio, aunque la falta de acceso al código específico utilizado en el análisis puede presentar un desafío adicional para la replicación exacta.</li>
+<li>
+<strong>Transparencia</strong>: En torno a la transparencia de la investigación, el Instituto Nacional de Estadística de Chile <span class="citation" data-cites="ineinforme2025">(<a href="#ref-ineinforme2025" role="doc-biblioref">2025b</a>)</span> identifica en sus primeras páginas todos los nombres y cargos de los responsables del proyecto. Asimismo, proporciona información sobre el financiamiento del estudio, indicando que fue financiado por el Instituto Nacional de Estadística de Chile. Por otra parte, la sección <em>2.1. Instrumentos de medición</em>, señala que se utiliza la plataforma <em>Survey Solutions</em> del Banco Central lo cual podría reforzar la transparencia en el manejo de los datos y de su recolección. Sin embargo, no se menciona explícitamente si existen o podrían existir conflictos de interés relacionados con el estudio. De todas formas, la primera versión de esta encuesta “permitió la implementación y mejora de políticas públicas en el país relativas principalmente a la promoción de la autonomía económica de las mujeres en el país” <span class="citation" data-cites="ineinforme2025">(<a href="#ref-ineinforme2025" role="doc-biblioref">Instituto Nacional de Estadísticas, 2025b</a>)</span>, con lo que se puede interpretar que esta segunda versión también contribuirá a esos fines, lo que podría ser un indicio de que no existen conflictos de interés o la intención de beneficiar a ciertos grupos específicos, sino brindar datos para la búsqueda de una sociedad con igualdad de género.</li>
+</ul></section><section id="análisis-reproducible" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Análisis reproducible</h1>
+<section id="resultado-a-reproducir" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="resultado-a-reproducir">
+<span class="header-section-number">3.1</span> Resultado a reproducir</h2>
+<p>Para el análisis reproducible se seleccionó la Tabla 16 del <a href="#ref-ineinforme2025">Informe de Principales Resultados</a> de la ENUT, que muestra la participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad en día tipo. <img src="input/images/Tabla16.png" class="img-fluid" alt="Tabla 16: Participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad en día tipo"></p>
+</section><section id="proceso-de-reproducción" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="proceso-de-reproducción">
+<span class="header-section-number">3.2</span> Proceso de reproducción</h2>
+<p>Para el procesamiento, limpieza y cálculos de variables, se utilizó el <em>Manual de Uso de Base de Datos</em>, que proporciona una descripción detallada de la estructura de la base de datos y las variables disponibles. En ese sentido, se identificaron las líneas de código necesarias que, a continuación, se presentan para el proceso de reproducción.</p>
+<section id="procesamiento" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="procesamiento">
+<span class="header-section-number">3.2.1</span> Procesamiento</h3>
 <ul>
-<li><strong>Disponibilidad de datos</strong>: ¿El artículo proporciona acceso a los datos utilizados en el estudio? Si no es así, ¿qué dificultades se enfrentaron para obtener los datos?</li>
-<li><strong>Disponibilidad de código</strong>: ¿El artículo proporciona acceso al código utilizado para el análisis? Si es así, ¿cómo se puede acceder?</li>
-<li><strong>Documentación</strong>: ¿El artículo incluye una descripción clara de los métodos y procedimientos utilizados en el estudio? ¿Es suficiente para que otro investigador pueda replicar el estudio?</li>
-<li><strong>Transparencia</strong>: ¿El artículo proporciona información sobre los posibles conflictos de interés, financiamiento, y otros aspectos relacionados con la transparencia de la investigación?</li>
+<li>Incluye el código utilizado para procesar los datos, junto con una explicación de cada paso.</li>
 </ul>
-</section>
-<section id="análisis-reproducible" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Análisis reproducible</h1>
-<p>Seleccionar un resultado específico del artículo (por ejemplo, una tabla de resultados o una figura) y tratar de reproducirlo utilizando los datos y el código proporcionados. Documentar el proceso de reproducción, incluyendo cualquier dificultad encontrada y cómo se resolvió.</p>
-<section id="resultado-a-reproducir" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="resultado-a-reproducir"><span class="header-section-number">3.1</span> Resultado a reproducir</h2>
+<p>En primer lugar, se cargan las librerias necesarias para el procesamiento de los datos y se descarga la bases de datos (que se encuentra en input, data, original), para luego hacer la identificación de las variables de interés, que en este caso son las variables de participación y tiempo destinado al trabajo no remunerado, tanto para día tipo como para fin de semana.</p>
+<p>Se crea una base auxiliar que contiene únicamente la identificación de la persona, en base a si contestó o no el cuestionario, pero sin alterar la base original.</p>
+<p>Posteriormente, se procede a derivar las variables de participación y tiempo. Por un lado, en participación, el código pretende escanear todas las actividades de trabajo no remunerado de cada persona, con el tratamiento de casos perdidos correspondiente en caso de no responder la pregunta, si el dato no existe o no aplica. Finalmente, se crea la participación de día tipo en base a si la persona participa en al menos una de las actividades de cuidado, domésticas o voluntarias o no. Por otro lado, en la variable de tiempo, se crean columnas temporales para que los datos perdidos no afecten las sumas de tiempo. Luego, se calcula el tiempo total destinado al trabajo no remunerado, ponderando el tiempo de día tipo por 5/7 y el tiempo de fin de semana por 2/7, para obtener una medida más representativa del tiempo semanal destinado a estas actividades.</p>
+<p>El siguiente paso, es el diseño muestral complejo, para asegurar que los resultados sean representativos de la población. Para esto, se utiliza la función <code>svydesign</code> del paquete <code>survey</code>, especificando las variables de identificación de conglomerados, estratos y pesos muestrales correspondientes a la encuesta.</p>
+<p>Finalmente, se hizo una estimación poblacional de trabajo no remunerado, donde se calcula la participación y tiempo totales; participación y tiempo por sexo y, participación y tiempo por sexo y región, que posteriormente se reemplaza por nacionalidad.</p>
+<p>Los códigos utilizados anteriormente son los códigos originales y en “crudo” que se encuentran en el Manual de uso de la base de datos, por lo que se han adaptado para el proceso de reproducción, pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del Informe de Principales Resultados de la ENUT, que no se encuentra en el <em>Manual de Uso de la Base de Datos</em>, pero que se deriva a partir de los códigos originales.</p>
+<p>En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el <em>Manual de Uso de la Base de Datos</em> funciona como diccionario y base metodológica para el procesamiento de los datos, plantea así el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios.</p>
 <ul>
-<li>Imagen de tabla(s), figura(s) o resultado específico del artículo seleccionado, junto a una breve descripción.</li>
-</ul>
-</section>
-<section id="proceso-de-reproducción" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="proceso-de-reproducción"><span class="header-section-number">3.2</span> Proceso de reproducción</h2>
-<ul>
-<li>Descripción detallada del proceso seguido para reproducir el resultado seleccionado, incluyendo los pasos realizados, las herramientas utilizadas, y cualquier ajuste necesario para lograr la reproducción. Incluye las siguientes sub secciones:</li>
-</ul>
-<section id="procesamiento" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="procesamiento"><span class="header-section-number">3.2.1</span> Procesamiento</h3>
-<ul>
-<li><p>Incluye el código utilizado para procesar los datos, junto con una explicación de cada paso.</p></li>
-<li><p>Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).</p></li>
-</ul>
-</section>
-<section id="reproducción" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="reproducción"><span class="header-section-number">3.2.2</span> Reproducción</h3>
+<li>Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).</li>
+</ul></section><section id="reproducción" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="reproducción">
+<span class="header-section-number">3.2.2</span> Reproducción</h3>
 <ul>
 <li>Generación de tabla o figura a reproducir.</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="conclusiones" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Conclusiones</h1>
+</ul></section></section></section><section id="conclusiones" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Conclusiones</h1>
 <p>Basándose en el análisis realizado, escriban una conclusión sobre el nivel de reproducibilidad del artículo seleccionado.</p>
-</section>
-<section id="recomendaciones" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Recomendaciones</h1>
+</section><section id="recomendaciones" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> Recomendaciones</h1>
 <p>Recomendaciones para mejorar la reproducibilidad del artículo, si es necesario.</p>
-</section>
-<section id="referencias" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Referencias</h1>
-<div id="refs" role="list">
-
+</section><section id="referencias" class="level1" data-number="6"><h1 data-number="6">
+<span class="header-section-number">6</span> Referencias</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-ineficha2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025a). <em><span>Ficha metodológica: II Encuesta sobre Uso del Tiempo 2023</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
 </div>
-</section>
-<section id="apéndice" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Apéndice</h1>
-<section id="material-suplementario" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="material-suplementario"><span class="header-section-number">7.1</span> Material suplementario</h2>
+<div id="ref-ineinforme2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025b). <em><span>Informe de principales resultados: II Encuesta Nacional sobre Uso del Tiempo (II ENUT)</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
+</div>
+<div id="ref-inemanual2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025c). <em><span>Manual de uso de la base de datos II ENUT: II Encuesta Nacional sobre Uso del Tiempo</span></em>. Institución Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
+</div>
+<div id="ref-inedocumento2025" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2025d). <em><span>Documento metodológico II ENUT: II Encuesta sobre Uso del Tiempo</span></em>.
+</div>
+<div id="ref-ineinforme2026" class="csl-entry" role="listitem">
+Instituto Nacional de Estadísticas. (2026). <em><span>Informe de Calidad II ENUT: II Encuesta sobre Uso del Tiempo</span></em>. Instituto Nacional de Estadísticas - Chile. Subdepartamento de Estadísticas Estructurales del Trabajo.
+</div>
+</div>
+</section><section id="apéndice" class="level1" data-number="7"><h1 data-number="7">
+<span class="header-section-number">7</span> Apéndice</h1>
+<section id="material-suplementario" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="material-suplementario">
+<span class="header-section-number">7.1</span> Material suplementario</h2>
 <ul>
 <li>Incluyan aquí detalles metodológicos adicionales, en caso de ser necesario</li>
-</ul>
-</section>
-<section id="código" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="código"><span class="header-section-number">7.2</span> Código</h2>
+</ul></section><section id="código" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="código">
+<span class="header-section-number">7.2</span> Código</h2>
 <ul>
 <li>Incluir acá el código original, en caso de estar disponible.</li>
-</ul>
-</section>
-</section>
-
-</main>
-<!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
+</ul></section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -626,7 +616,6 @@ div.csl-indent {
   });
   </script>
 </div> <!-- /content -->
-
 
 
 
