@@ -228,7 +228,7 @@ rm(ds_vars_tiempo, fds_vars_tiempo)
 
 ```
 
-Se unen las variables participacion y tiempo a la base general y se eliminan columnas para evitar duplicaddos.
+Se unen las variables participación/tiempo a la base general y se eliminan columnas para evitar duplicados. 
 
 ```{r}
 enut_auxiliar <- enut_auxiliar %>%
@@ -305,10 +305,20 @@ print(tiemp_tnr_pdn)
 
 ```
 
-Finalmente, se construye la tabla con los resultados obtenidos y se procede a ejecutar el codigo para la vosualización de la tabla, que compara el cuanto participan y cuando tiempo dedican hombres y mujeres versus extranjeros al trabajo no remunerado. 
+
+Los códigos utilizados anteriormente son los códigos modificados, pero basados en los códigos originales que se encuentran en el Manual de uso de la base de datos, por lo que se han adaptado para el proceso de reproducción pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del Informe de Principales Resultados de la ENUT, que no se encuentra en el *Manual de Uso de la Base de Datos*, pero que se deriva a partir de los códigos originales. 
+
+En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el *Manual de Uso de la Base de Datos* funciona como diccionario y base metodológica para el procesamiento de los datos, la dificultad principal es que plantea  el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios.
+
+La principal dificultad es que los codigos del manual de uso de base de datos entregan una estructura determinada para el procesamiento, mas no el codigo especifico para tratar algunas variables, a su vez, el manual no provee una sola linea de codigo legible para el procesamiento de la base de datos, sino bloques pequeños que retratan acciones especificas para casos particulares, en otras palabras, la linea completa del codigo original es el resultado de la union de varios bloques que se encuentran por separado, por tanto, la busqueda y tratamiento de las variables de interés se torna compleja. En este caso, dado el tamaño y complejidad de la base de datos, se hizo dificil la seleccion de variables y su inclusion, por ejemplo, para la identificacion de la variable tiempo (paso 1), en el manual estaba incompleto, por tanto se hizo una busqueda del nombre de la variable para tratarse como tal y se consultó a la IA, para desarrollar el código necesario para el tratamiento de esta variable y su inclusion para la respectiva reproducibilidad. A su vez, para la derivacion de participacion (paso 4), el codigo no incluía la participacion en días de semana completa, constituyendose como variable central de toda la tabla, por tanto, se hizo necesario desarrollar el codigo mediante la IA,dado que sin ella (variable), ninguna estimación posterior podria haberse ejecutado. Otra dificulad encontrada es que no existe codigo que retrate la union de las variables de interes a la base principal, sin este paso, el diseño muetral complejo no hubiese tenido acceso a las variables derivadas, el manual solo hace la union en bases temporales o paralelas.   
+
+
+
+- Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).
+
+### Reproducción
 
 ```{r}
-
 # Construccion de la tabla 
 
 fmt_hm <- function(h) {
@@ -390,21 +400,7 @@ tabla16 |>
     locations = cells_body(rows = Nacionalidad == "Total")
   )
 
-
-
 ```
-
-
-Los códigos utilizados anteriormente son los códigos modificados, pero basados en los codigos originales que se encuentran en el Manual de uso de la base de datos, por lo que se han adaptado para el proceso de reproducción, pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del Informe de Principales Resultados de la ENUT, que no se encuentra en el *Manual de Uso de la Base de Datos*, pero que se deriva a partir de los códigos originales. 
-
-En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el *Manual de Uso de la Base de Datos* funciona como diccionario y base metodológica para el procesamiento de los datos, planteando el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios. 
-
-
-- Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).
-
-### Reproducción
-
-- Generación de tabla o figura a reproducir.
 
 # Conclusiones
 
@@ -427,6 +423,205 @@ Recomendaciones para mejorar la reproducibilidad del artículo, si es necesario.
 
 ## Código
 
-- Incluir acá el código original, en caso de estar disponible.
+Este es el codigo original que se encuentra en el manual de uso de base de datos, pero como se menciona en el analisis, no es un codigo legible ni completo para el proceso de reproducción. Ademas, la linea completa es el resultado de la union de varios bloques por lo que se hizo necesario adaptarlo y desarrollarlo. 
+
+```{r}
+# Codigos de manual de uso de base de datos paso a paso.
+
+
+## PASO 2: Identificacion de variables participacion y tiempo ---- 
+
+
+# variables de participación 
+ds_vars_part <- enut %>%
+  select(matches("^tc\\d*_p_ds$"), matches("^td\\d*_p_ds$"),
+         matches("^tv\\d*_p_ds$")) %>%
+  names()
+ 
+fds_vars_part <- enut %>%
+  select(matches("^tc\\d*_p_fds$"), matches("^td\\d*_p_fds$"),
+         matches("^tv\\d*_p_fds$")) %>%
+  names()
+
+# variables de tiempo 
+
+  select(matches("^tc\\d*_t(_n[1-4])?_ds$"), matches("^td\\d*_t_ds$"),
+         matches("^tv\\d*_t_ds$")) %>%
+  names()
+
+  fds_vars_tiempo <- enut %>%
+  select(matches("^tc\\d*_t(_n[1-4])?_fds$"), matches("^td\\d*_t_fds$"),
+         matches("^tv\\d*_t_fds$")) %>%
+  names()
+
+## PASO 3: CREACION DE BASE AUXILIAR ---- 
+
+enut_auxiliar <- enut %>%
+  select(id_persona, tiempo, matches(match = ds_vars_part),
+         matches(match = fds_vars_part))
+
+
+## PASO 4: DERIVAR VARIABLE DE PARTICIPACION  ---- 
+
+enut_auxiliar <-
+  enut_auxiliar %>%
+  mutate(
+    p_tnr_ds =
+      case_when(
+        # Cuando no hay CUT, asigna NA
+        tiempo == 0
+        ~ NA_real_,
+        # Si todos los valores son 96, asigna 96
+        across(
+          all_of(ds_vars_part),
+          ~ . == 96) %>%
+          rowSums(na.rm = TRUE) == length(ds_vars_part)
+        ~ 96,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es mayor a 0, asigna 1
+        rowSums(
+          across(
+            all_of(ds_vars_part), ~ . == 1),
+          na.rm = TRUE) > 0
+        ~ 1,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es igual a 0, asigna 0
+        rowSums(
+          across(
+            all_of(ds_vars_part), ~ . == 1),
+          na.rm = TRUE) == 0
+        ~ 0,
+        # En cualquier otro escenario, asigna NA
+        TRUE
+        ~ NA_real_))
+
+enut_auxiliar <-
+  enut_auxiliar %>%
+  mutate(
+    p_tnr_fds =
+      case_when(
+        # Cuando no hay CUT, asigna NA
+        tiempo == 0
+        ~ NA_real_,
+        # Si todos los valores son 96, asigna 96
+        across(
+          all_of(fds_vars_part),
+          ~ . == 96) %>%
+          rowSums(na.rm = TRUE) == length(fds_vars_part)
+        ~ 96,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es mayor a 0, asigna 1
+        rowSums(
+          across(
+            all_of(fds_vars_part), ~ . == 1),
+          na.rm = TRUE) > 0
+        ~ 1,
+        # Si al filtrar todos los valores 1 y sumarlos...
+        # ...el resultado es igual a 0, asigna 0
+        rowSums(
+          across(
+            all_of(fds_vars_part), ~ . == 1),
+          na.rm = TRUE) == 0
+        ~ 0,
+        # En cualquier otro escenario, asigna NA
+        TRUE
+        ~ NA_real_))
+
+# PASO 5: DERIVACION DE VARIABLE TIEMPO ----
+
+enut_auxiliar <-
+  enut %>%
+  select(id_persona,
+         tiempo,
+         matches(match=ds_vars_tiempo),
+         matches(match=fds_vars_tiempo))
+enut_auxiliar <-
+  enut_auxiliar %>%
+  mutate(
+    across(
+      # En todas las variables de ds_vars_tiempo...
+      all_of(ds_vars_tiempo),
+      # ... si la variable toma el valor 96 o 0, asigna NA
+      ~ replace(., . == 96 | . == 0, NA),
+      # Guarda esto en una columna con el mismo nombre...
+      # ...pero agrega el prefijo "temp_ds"
+      .names = "temp_ds_{col}"),
+    across(
+      # En todas las variables de fds_vars_tiempo...
+      all_of(fds_vars_tiempo),
+      # ...si la variable toma el valor 96 o 0, asigna NA
+      ~ replace(., . == 96 | . == 0, NA),
+      # Guarda esto en una columna con el mismo nombre...
+      # ...pero agrega el prefijo "temp_fds"
+      .names = "temp_fds_{col}"))
+
+# CALCULO DE TIEMPO 
+enut_auxiliar <- enut_auxiliar %>%
+  mutate(t_tnr_ds = rowSums(across(starts_with("temp_ds_")),
+                            na.rm = TRUE), t_tnr_ds = if_else(t_tnr_ds ==
+                                                                0, NA_real_, t_tnr_ds), t_tnr_fds = rowSums(across(starts_with("temp_fds_")),
+                                                                                                            na.rm = TRUE), t_tnr_fds = if_else(t_tnr_fds ==
+                                                                                                                                                 0, NA_real_, t_tnr_fds))
+enut_auxiliar <- enut_auxiliar %>%
+  mutate(t_tnr_dt = if_else(!is.na(t_tnr_ds) & !is.na(t_tnr_fds),
+                            (t_tnr_ds * 5/7) + (t_tnr_fds * 2/7), coalesce(t_tnr_ds *
+                                                                             5/7, t_tnr_fds * 2/7)))
+rm(ds_vars_tiempo, fds_vars_tiempo) # Limpiar ambiente global
+enut_auxiliar <- enut_auxiliar %>%
+  select(id_persona, matches(match = "^t\\_tnr\\_(ds|fds|dt)$"))
+enut_tnr <- left_join(x = enut_tnr, y = enut_auxiliar,
+                      by = "id_persona")
+rm(enut_auxiliar)
+
+
+# Paso 7: Diseño muestral complejo ---- 
+
+enut1 <- enut %>%
+  filter(tiempo == 1)
+
+disenio <- survey::svydesign(data = enut1, strata = ~varstrat,
+                             ids = ~varunit, weights = ~fe_cut)
+
+
+# PASO 8: ESTIMACIONES POBLACIONALES  ---- 
+
+# participacion y tiempo totales 
+
+part_tnr <- survey::svyciprop(~p_tnr_dt, design = disenio,
+                              na.rm = TRUE)
+print(part_tnr)
+
+tiemp_tnr <- survey::svymean(~t_tnr_dt, design = disenio,
+                             na.rm = TRUE)
+print(tiemp_tnr)
+
+
+# participacion y tiempo totales por sexo 
+
+part_tnr_sexo <- survey::svyby(formula = ~p_tnr_dt,
+                               by = ~sexo, design = disenio, FUN = survey::svyciprop,
+                               na.rm = TRUE, vartype = c("se", "cv"))
+tiemp_tnr_sexo <- svyby(formula = ~t_tnr_dt, by = ~sexo,
+                        design = disenio, FUN = survey::svymean, na.rm = TRUE,
+                        vartype = c("se", "cv"))
+print(tiemp_tnr_sexo)
+
+
+# participacion por sexo y nacionalidad 
+
+part_tnr_sexo_reg <- survey::svyby(formula = ~p_tnr_dt,
+                                   by = ~sexo + region_ord, design = disenio, FUN = survey::svyciprop,
+                                   na.rm = TRUE, vartype = c("se"))
+print(part_tnr_sexo_reg)
+
+ # se reemplaza region por nacionalidad 
+tiemp_tnr_sexo_reg <- survey::svyby(formula = ~t_tnr_dt,
+                                    by = ~sexo + region_ord, design = disenio, FUN = survey::svymean,
+                                    vartype = c("se"), na.rm = TRUE)
+print(tiemp_tnr_sexo_reg) 
+
+
+ 
+```
 
 
