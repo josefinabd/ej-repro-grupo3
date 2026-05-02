@@ -25,8 +25,10 @@ ej-repro-grupo3/
  |  |  |- bibliog_enut.bib
  |  |- data/
  |  |  |- original/
+ |  |  |  |- 250403-ii-enut-bdd-r-v2.RDS
  |  |  |- proc/
  |  |- images/
+ |  |  |- Tabla16.png
  |  |- original-code/
  |- libs/
  |  |- ocs.scss
