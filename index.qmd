@@ -89,7 +89,7 @@ Para el procesamiento, limpieza y cálculos de variables, se utilizó el *Manual
 ### Procesamiento
 - Incluye el código utilizado para procesar los datos, junto con una explicación de cada paso. 
 
-En primer lugar, se cargan las librerias necesarias para el procesamiento de los datos y se descarga la bases de datos (que se encuentra en input, data, original), para luego hacer la identificación de las variables de interés, que en este caso son las variables de participación y tiempo destinado al trabajo no remunerado, tanto para día tipo como para fin de semana. 
+En primer lugar, se cargan las librerías necesarias para el procesamiento de los datos y se descarga la bases de datos (que se encuentra en input, data, original), para luego hacer la identificación de las variables de interés, que en este caso son las variables de participación y tiempo destinado al trabajo no remunerado, tanto para día tipo como para fin de semana. 
 
 ```{r}
 #| label: limpieza de datos
@@ -101,31 +101,29 @@ library(survey)
 library(gt)
 
 # Cargar datos
-enut <- readRDS("input/data/original/250403-ii-enut-bdd-r-v2.RDS")
+ENUT_DATA <- readRDS("input/data/original/250403-ii-enut-bdd-r-v2.RDS")
 
 # Selección de variables 
 ## Variables de participación 
-ds_vars_part <- enut %>%
-  select(matches("^tc\\d*_p_ds$"), 
-         matches("^td\\d*_p_ds$"),
+
+ds_vars_part <- ENUT_DATA %>%
+  select(matches("^tc\\d*_p_ds$"), matches("^td\\d*_p_ds$"),
          matches("^tv\\d*_p_ds$")) %>%
   names()
- 
-fds_vars_part <- enut %>%
-  select(matches("^tc\\d*_p_fds$"), 
-         matches("^td\\d*_p_fds$"),
+
+fds_vars_part <- ENUT_DATA %>%
+  select(matches("^tc\\d*_p_fds$"), matches("^td\\d*_p_fds$"),
          matches("^tv\\d*_p_fds$")) %>%
   names()
 
-## Variables de tiempo 
-ds_vars_tiempo <- enut %>%
-  select(matches("^tc\\d*_t(_n[1-4])?_ds$"), 
+ds_vars_tiempo <- ENUT_DATA %>%
+  select(matches("^tc\\d*_t(_n[1-4])?_ds$"),
          matches("^td\\d*_t_ds$"),
          matches("^tv\\d*_t_ds$")) %>%
   names()
 
-  fds_vars_tiempo <- enut %>%
-  select(matches("^tc\\d*_t(_n[1-4])?_fds$"), 
+fds_vars_tiempo <- ENUT_DATA %>%
+  select(matches("^tc\\d*_t(_n[1-4])?_fds$"),
          matches("^td\\d*_t_fds$"),
          matches("^tv\\d*_t_fds$")) %>%
   names()
@@ -137,134 +135,113 @@ ds_vars_tiempo <- enut %>%
  ```{r}
  #| label: base auxiliar
 
- enut_auxiliar <- enut %>%
+ enut_auxiliar <- ENUT_DATA %>%
   select(id_persona, tiempo,
-         all_of(ds_vars_part), 
-         all_of(fds_vars_part),
-         all_of(ds_vars_tiempo), 
-         all_of(fds_vars_tiempo))
+         all_of(ds_vars_part), all_of(fds_vars_part),
+         all_of(ds_vars_tiempo), all_of(fds_vars_tiempo))
 
-enut_tnr <- enut %>% select(id_persona) 
+enut_tnr <- ENUT_DATA %>% select(id_persona)
 
  ```
 
-Posteriormente, se procede a derivar las variables de participación y tiempo. Por un lado, en participación, el código pretende escanear todas las actividades de trabajo no remunerado de cada persona, con el tratamiento de casos perdidos correspondiente en caso de no responder la pregunta, si el dato no existe o no aplica. Finalmente, se crea la participación de día tipo en base a si la persona participa en al menos una de las actividades de cuidado, domésticas o voluntarias o no. Por otro lado, en la variable de tiempo, se crean columnas temporales para que los datos perdidos no afecten las sumas de tiempo. Luego, se calcula el tiempo total destinado al trabajo no remunerado, ponderando el tiempo de día tipo por 5/7 y el tiempo de fin de semana por 2/7, para obtener una medida más representativa del tiempo semanal destinado a estas actividades.
+Posteriormente, se procede a derivar las variables de participación y tiempo. Por un lado, en participación, el código pretende escanear todas las actividades de trabajo no remunerado de cada persona, con el tratamiento de casos perdidos correspondiente en caso de no responder la pregunta, si el dato no existe o no aplica. Finalmente, se crea la participación de día tipo en base a si la persona participa en al menos una de las actividades de cuidado, domésticas, voluntarias o no. Por otro lado, en la variable de tiempo, se crean columnas temporales para que los datos perdidos no afecten las sumas de tiempo. Luego, se calcula el tiempo total destinado al trabajo no remunerado, ponderando el tiempo de día tipo por 5/7 y el tiempo de fin de semana por 2/7, para obtener una medida más representativa del tiempo semanal destinado a estas actividades.
 
 ```{r}
 #| label: derivación variables
 
 # Derivación de participación 
-enut_auxiliar <-
-  enut_auxiliar %>%
+
+enut_auxiliar <- enut_auxiliar %>%
   mutate(
     p_tnr_ds =
       case_when(
-        # Cuando no hay CUT, asigna NA
         tiempo == 0
         ~ NA_real_,
-        # Si todos los valores son 96, asigna 96
-        across(
-          all_of(ds_vars_part),
-          ~ . == 96) %>%
+        across(all_of(ds_vars_part), ~ . == 96) %>%
           rowSums(na.rm = TRUE) == length(ds_vars_part)
         ~ 96,
-        # Si al filtrar todos los valores 1 y sumarlos...
-        # ...el resultado es mayor a 0, asigna 1
-        rowSums(
-          across(
-            all_of(ds_vars_part), ~ . == 1),
-          na.rm = TRUE) > 0
+        rowSums(across(all_of(ds_vars_part), ~ . == 1),
+                na.rm = TRUE) > 0
         ~ 1,
-        # Si al filtrar todos los valores 1 y sumarlos...
-        # ...el resultado es igual a 0, asigna 0
-        rowSums(
-          across(
-            all_of(ds_vars_part), ~ . == 1),
-          na.rm = TRUE) == 0
+        rowSums(across(all_of(ds_vars_part), ~ . == 1),
+                na.rm = TRUE) == 0
         ~ 0,
-        # En cualquier otro escenario, asigna NA
-        TRUE
-        ~ NA_real_))
-
-enut_auxiliar <-
-  enut_auxiliar %>%
-  mutate(
+        TRUE ~ NA_real_),
+    
     p_tnr_fds =
       case_when(
-        # Cuando no hay CUT, asigna NA
         tiempo == 0
         ~ NA_real_,
-        # Si todos los valores son 96, asigna 96
-        across(
-          all_of(fds_vars_part),
-          ~ . == 96) %>%
+        across(all_of(fds_vars_part), ~ . == 96) %>%
           rowSums(na.rm = TRUE) == length(fds_vars_part)
         ~ 96,
-        # Si al filtrar todos los valores 1 y sumarlos...
-        # ...el resultado es mayor a 0, asigna 1
-        rowSums(
-          across(
-            all_of(fds_vars_part), ~ . == 1),
-          na.rm = TRUE) > 0
+        rowSums(across(all_of(fds_vars_part), ~ . == 1),
+                na.rm = TRUE) > 0
         ~ 1,
-        # Si al filtrar todos los valores 1 y sumarlos...
-        # ...el resultado es igual a 0, asigna 0
-        rowSums(
-          across(
-            all_of(fds_vars_part), ~ . == 1),
-          na.rm = TRUE) == 0
+        rowSums(across(all_of(fds_vars_part), ~ . == 1),
+                na.rm = TRUE) == 0
         ~ 0,
-        # En cualquier otro escenario, asigna NA
-        TRUE
-        ~ NA_real_))
+        TRUE ~ NA_real_),
+    
+    p_tnr_dt =
+      case_when(
+        p_tnr_ds == 1 | p_tnr_fds == 1 ~ 1,
+        p_tnr_ds == 96 | p_tnr_fds == 96 ~ 96,
+        p_tnr_ds == 0 & p_tnr_fds == 0 ~ 0
+      )
+  )
 
+rm(ds_vars_part, fds_vars_part)
 
 # Derivación de tiempo
 
-enut_auxiliar <-
-  enut %>%
-  select(id_persona,
-         tiempo,
-         matches(match=ds_vars_tiempo),
-         matches(match=fds_vars_tiempo))
-enut_auxiliar <-
-  enut_auxiliar %>%
+enut_auxiliar <- enut_auxiliar %>%
   mutate(
     across(
-      # En todas las variables de ds_vars_tiempo...
       all_of(ds_vars_tiempo),
-      # ... si la variable toma el valor 96 o 0, asigna NA
       ~ replace(., . == 96 | . == 0, NA),
-      # Guarda esto en una columna con el mismo nombre...
-      # ...pero agrega el prefijo "temp_ds"
       .names = "temp_ds_{col}"),
     across(
-      # En todas las variables de fds_vars_tiempo...
       all_of(fds_vars_tiempo),
-      # ...si la variable toma el valor 96 o 0, asigna NA
       ~ replace(., . == 96 | . == 0, NA),
-      # Guarda esto en una columna con el mismo nombre...
-      # ...pero agrega el prefijo "temp_fds"
       .names = "temp_fds_{col}"))
 
-# Cálculo de tiempo 
+enut_auxiliar <- enut_auxiliar %>%
+  mutate(
+    t_tnr_ds = rowSums(across(starts_with("temp_ds_")), na.rm = TRUE),
+    t_tnr_ds = if_else(t_tnr_ds == 0, NA_real_, t_tnr_ds),
+    t_tnr_fds = rowSums(across(starts_with("temp_fds_")), na.rm = TRUE),
+    t_tnr_fds = if_else(t_tnr_fds == 0, NA_real_, t_tnr_fds),
+    t_tnr_dt =
+      case_when(
+        !is.na(t_tnr_ds) & !is.na(t_tnr_fds)
+        ~ (t_tnr_ds * 5/7) + (t_tnr_fds * 2/7),
+        !is.na(t_tnr_ds) & is.na(t_tnr_fds)
+        ~ t_tnr_ds * 5/7,
+        is.na(t_tnr_ds) & !is.na(t_tnr_fds)
+        ~ t_tnr_fds * 2/7,
+        TRUE ~ NA_real_
+      )
+  )
 
+rm(ds_vars_tiempo, fds_vars_tiempo)
+
+```
+
+Se unen las variables participacion y tiempo a la base general y se eliminan columnas para evitar duplicaddos.
+
+```{r}
 enut_auxiliar <- enut_auxiliar %>%
-  mutate(t_tnr_ds = rowSums(across(starts_with("temp_ds_")),
-                            na.rm = TRUE), t_tnr_ds = if_else(t_tnr_ds ==
-                                                                0, NA_real_, t_tnr_ds), t_tnr_fds = rowSums(across(starts_with("temp_fds_")),
-                                                                                                            na.rm = TRUE), t_tnr_fds = if_else(t_tnr_fds ==
-                                                                                                                                                 0, NA_real_, t_tnr_fds))
-enut_auxiliar <- enut_auxiliar %>%
-  mutate(t_tnr_dt = if_else(!is.na(t_tnr_ds) & !is.na(t_tnr_fds),
-                            (t_tnr_ds * 5/7) + (t_tnr_fds * 2/7), coalesce(t_tnr_ds *
-                                                                             5/7, t_tnr_fds * 2/7)))
-rm(ds_vars_tiempo, fds_vars_tiempo) # Limpiar ambiente global
-enut_auxiliar <- enut_auxiliar %>%
-  select(id_persona, matches(match = "^t\\_tnr\\_(ds|fds|dt)$"))
+  select(id_persona, matches("^[pt]_tnr_(ds|fds|dt)$"))
+
 enut_tnr <- left_join(x = enut_tnr, y = enut_auxiliar,
                       by = "id_persona")
 rm(enut_auxiliar)
+
+ENUT_DATA <- ENUT_DATA %>% select(-matches("tnr_(ds|fds|dt)"))
+ENUT_DATA <- ENUT_DATA %>% left_join(enut_tnr, by = "id_persona")
+rm(enut_tnr)
+
 ```
 
 El siguiente paso, es el diseño muestral complejo, para asegurar que los resultados sean representativos de la población. Para esto, se utiliza la función `svydesign` del paquete `survey`, especificando las variables de identificación de conglomerados, estratos y pesos muestrales correspondientes a la encuesta. 
@@ -272,58 +249,155 @@ El siguiente paso, es el diseño muestral complejo, para asegurar que los result
 ```{r}
 #| label: diseño muestral complejo
 
-# Diseño muestral complejo
-enut1 <- enut %>%
-  filter(tiempo == 1)
+enut1 <- ENUT_DATA %>%
+  filter(!is.na(fe_cut))
 
 disenio <- survey::svydesign(data = enut1, strata = ~varstrat,
                              ids = ~varunit, weights = ~fe_cut)
 ```
 
-Finalmente, se hizo una estimación poblacional de trabajo no remunerado, donde se calcula la participación y tiempo totales; participación y tiempo por sexo y, participación y tiempo por sexo y región, que posteriormente se reemplaza por nacionalidad.
+ Se hizo una estimación poblacional de trabajo no remunerado, donde se calcula la participación y tiempo totales; participación y tiempo por sexo y, participación y tiempo por sexo y región, que posteriormente se reemplaza por nacionalidad.
 
 ```{r}
 #| label: estimaciones poblacionales
 
 # Participación y tiempo totales 
 
-part_tnr <- survey::svyciprop(~p_tnr_dt, design = disenio,
-                              na.rm = TRUE)
-print(part_tnr)
-
-tiemp_tnr <- survey::svymean(~t_tnr_dt, design = disenio,
-                             na.rm = TRUE)
-print(tiemp_tnr)
-
-
-# Participación y tiempo totales por sexo 
-
-part_tnr_sexo <- survey::svyby(formula = ~p_tnr_dt,
-                               by = ~sexo, design = disenio, FUN = survey::svyciprop,
+part_tnr_pdn  <- survey::svyby(formula = ~p_tnr_dt,
+                               by = ~sexo + pdn, design = disenio,
+                               FUN = survey::svymean,
                                na.rm = TRUE, vartype = c("se", "cv"))
-tiemp_tnr_sexo <- svyby(formula = ~t_tnr_dt, by = ~sexo,
-                        design = disenio, FUN = survey::svymean, na.rm = TRUE,
-                        vartype = c("se", "cv"))
-print(tiemp_tnr_sexo)
 
+tiemp_tnr_pdn <- survey::svyby(formula = ~t_tnr_dt,
+                               by = ~sexo + pdn, design = disenio,
+                               FUN = survey::svymean,
+                               na.rm = TRUE, vartype = c("se", "cv"))
 
-# Participación por sexo y nacionalidad 
+n_part <- survey::svyby(formula = ~I(p_tnr_dt == 1),
+                        by = ~sexo + pdn, design = disenio,
+                        FUN = survey::svytotal, na.rm = TRUE)
 
-part_tnr_sexo_reg <- survey::svyby(formula = ~p_tnr_dt,
-                                   by = ~sexo + region_ord, design = disenio, FUN = survey::svyciprop,
-                                   na.rm = TRUE, vartype = c("se"))
-print(part_tnr_sexo_reg)
+part_total  <- survey::svyby(formula = ~p_tnr_dt,
+                             by = ~pdn, design = disenio,
+                             FUN = survey::svymean, na.rm = TRUE)
+tiemp_total <- survey::svyby(formula = ~t_tnr_dt,
+                             by = ~pdn, design = disenio,
+                             FUN = survey::svymean, na.rm = TRUE)
+n_nac       <- survey::svyby(formula = ~I(p_tnr_dt == 1),
+                             by = ~pdn, design = disenio,
+                             FUN = survey::svytotal, na.rm = TRUE)
 
- # Se reemplaza región por nacionalidad 
-tiemp_tnr_sexo_reg <- survey::svyby(formula = ~t_tnr_dt,
-        by = ~sexo + region_ord, design = disenio, FUN = survey::svymean,
-        vartype = c("se"), na.rm = TRUE)
-print(tiemp_tnr_sexo_reg) 
+part_sexo  <- survey::svyby(formula = ~p_tnr_dt,
+                            by = ~sexo, design = disenio,
+                            FUN = survey::svymean, na.rm = TRUE)
+tiemp_sexo <- survey::svyby(formula = ~t_tnr_dt,
+                            by = ~sexo, design = disenio,
+                            FUN = survey::svymean, na.rm = TRUE)
+
+part_gral  <- survey::svymean(~p_tnr_dt, design = disenio, na.rm = TRUE)
+tiemp_gral <- survey::svymean(~t_tnr_dt, design = disenio, na.rm = TRUE)
+n_gral_val <- coef(survey::svytotal(~I(p_tnr_dt == 1),
+                                    design = disenio,
+                                    na.rm = TRUE))["I(p_tnr_dt == 1)TRUE"]
+
+print(part_tnr_pdn)
+print(tiemp_tnr_pdn)
+
 ```
 
-Los códigos utilizados anteriormente son los códigos originales y en "crudo" que se encuentran en el Manual de uso de la base de datos, por lo que se han adaptado para el proceso de reproducción, pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del Informe de Principales Resultados de la ENUT, que no se encuentra en el *Manual de Uso de la Base de Datos*, pero que se deriva a partir de los códigos originales. 
+Finalmente, se construye la tabla con los resultados obtenidos y se procede a ejecutar el codigo para la vosualización de la tabla, que compara el cuanto participan y cuando tiempo dedican hombres y mujeres versus extranjeros al trabajo no remunerado. 
 
-En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el *Manual de Uso de la Base de Datos* funciona como diccionario y base metodológica para el procesamiento de los datos, plantea así el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios. 
+```{r}
+
+# Construccion de la tabla 
+
+fmt_hm <- function(h) {
+  hh <- floor(h)
+  mm <- round((h - hh) * 60)
+  sprintf("%02d:%02d", hh, mm)
+}
+
+np     <- function(row) n_part[row, "I(p_tnr_dt == 1)TRUE"]
+np_nac <- function(row) n_nac[row,  "I(p_tnr_dt == 1)TRUE"]
+
+tabla16 <- data.frame(
+  Nacionalidad = c("Chile", "Extranjero", "Total"),
+  N_Hombre = format(round(c(np("1.1"), np("1.2"),
+                            np("1.1") + np("1.2"))),
+                    big.mark = "."),
+  N_Mujer  = format(round(c(np("2.1"), np("2.2"),
+                            np("2.1") + np("2.2"))),
+                    big.mark = "."),
+  N_Total  = format(round(c(np_nac("1"), np_nac("2"), n_gral_val)),
+                    big.mark = "."),
+  Part_Hombre = round(c(part_tnr_pdn["1.1", "p_tnr_dt"],
+                        part_tnr_pdn["1.2", "p_tnr_dt"],
+                        part_sexo["1",  "p_tnr_dt"]) * 100, 1),
+  Part_Mujer  = round(c(part_tnr_pdn["2.1", "p_tnr_dt"],
+                        part_tnr_pdn["2.2", "p_tnr_dt"],
+                        part_sexo["2",  "p_tnr_dt"]) * 100, 1),
+  Part_Total  = round(c(part_total[1, "p_tnr_dt"],
+                        part_total[2, "p_tnr_dt"],
+                        coef(part_gral)) * 100, 1),
+  Tiemp_Hombre = fmt_hm(c(tiemp_tnr_pdn["1.1", "t_tnr_dt"],
+                          tiemp_tnr_pdn["1.2", "t_tnr_dt"],
+                          tiemp_sexo["1",  "t_tnr_dt"])),
+  Tiemp_Mujer  = fmt_hm(c(tiemp_tnr_pdn["2.1", "t_tnr_dt"],
+                          tiemp_tnr_pdn["2.2", "t_tnr_dt"],
+                          tiemp_sexo["2",  "t_tnr_dt"])),
+  Tiemp_Total  = fmt_hm(c(tiemp_total[1, "t_tnr_dt"],
+                          tiemp_total[2, "t_tnr_dt"],
+                          coef(tiemp_gral)))
+)
+
+tabla16$Brecha_Part <- round(c(
+  part_tnr_pdn["2.1", "p_tnr_dt"] - part_tnr_pdn["1.1", "p_tnr_dt"],
+  part_tnr_pdn["2.2", "p_tnr_dt"] - part_tnr_pdn["1.2", "p_tnr_dt"],
+  part_sexo["2", "p_tnr_dt"]      - part_sexo["1", "p_tnr_dt"]
+) * 100, 1)
+
+tabla16$Brecha_Tiemp <- fmt_hm(c(
+  tiemp_tnr_pdn["2.1", "t_tnr_dt"] - tiemp_tnr_pdn["1.1", "t_tnr_dt"],
+  tiemp_tnr_pdn["2.2", "t_tnr_dt"] - tiemp_tnr_pdn["1.2", "t_tnr_dt"],
+  tiemp_sexo["2", "t_tnr_dt"]      - tiemp_sexo["1", "t_tnr_dt"]
+))
+
+# Visualizacion de la tabla
+
+tabla16 |>
+  gt() |>
+  cols_label(
+    Nacionalidad = "Nacionalidad",
+    N_Hombre = "Hombre", N_Mujer = "Mujer", N_Total = "Total",
+    Part_Hombre = "Hombre", Part_Mujer = "Mujer", Part_Total = "Total",
+    Tiemp_Hombre = "Hombre", Tiemp_Mujer = "Mujer", Tiemp_Total = "Total",
+    Brecha_Part = "Part.", Brecha_Tiemp = "Tiempo"
+  ) |>
+  tab_spanner(label = "Número de personas que participan (a)",
+              columns = c(N_Hombre, N_Mujer, N_Total)) |>
+  tab_spanner(label = "Participación Día Tipo",
+              columns = c(Part_Hombre, Part_Mujer, Part_Total)) |>
+  tab_spanner(label = "Tiempo promedio Día Tipo",
+              columns = c(Tiemp_Hombre, Tiemp_Mujer, Tiemp_Total)) |>
+  tab_spanner(label = "Brechas (b)",
+              columns = c(Brecha_Part, Brecha_Tiemp)) |>
+  tab_header(
+    title = md("**Tabla 16**"),
+    subtitle = "Participación y tiempo destinado al trabajo no remunerado, según sexo y nacionalidad, en día tipo"
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(rows = Nacionalidad == "Total")
+  )
+
+
+
+```
+
+
+Los códigos utilizados anteriormente son los códigos modificados, pero basados en los codigos originales que se encuentran en el Manual de uso de la base de datos, por lo que se han adaptado para el proceso de reproducción, pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del Informe de Principales Resultados de la ENUT, que no se encuentra en el *Manual de Uso de la Base de Datos*, pero que se deriva a partir de los códigos originales. 
+
+En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el *Manual de Uso de la Base de Datos* funciona como diccionario y base metodológica para el procesamiento de los datos, planteando el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios. 
 
 
 - Los datos originales deben ser llamados desde input/data/original, el código de procesamiento se debe incluir en este mismo archivo (reporte-repro.qmd).
