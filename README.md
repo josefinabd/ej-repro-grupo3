@@ -40,7 +40,7 @@ ej-repro-grupo3/
  |  |- prod_prep.Rmd
  |  |- prod_prep.html
  |- scripts/
- |  |- 01_ seleccion_articulo.qmd.qmd
+ |  |- 01_ seleccion_articulo.qmd
  |  |- 02_evaluacion_reproducibilidad.qmd
  |  |- 03_analisis_reproducible.qmd
  |  |- update-working-tree.sh
