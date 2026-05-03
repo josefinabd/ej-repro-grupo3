@@ -93,7 +93,6 @@ Para el procesamiento, limpieza y cálculos de variables, se utilizó el *Manual
 En primer lugar, se cargan las librerías necesarias para el procesamiento de los datos y se descarga la bases de datos (que se encuentra en input, data, original), para luego hacer la identificación de las variables de interés, que en este caso son las variables de participación y tiempo destinado al trabajo no remunerado, tanto para día tipo como para fin de semana. 
 
 ```{r}
-#| label: limpieza de datos
 
 # Cargar librerías necesarias
 library(tidyverse)
@@ -101,7 +100,7 @@ library(haven)
 library(survey)
 library(gt)
 
-# Cargar datos
+# Cargar datos originales
 ENUT_DATA <- readRDS("input/data/original/250403-ii-enut-bdd-r-v2.RDS")
 
 # Selección de variables 
