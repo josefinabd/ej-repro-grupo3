@@ -392,7 +392,7 @@ div.csl-indent {
 </div>
 <p>Los códigos utilizados anteriormente son los códigos modificados para el análisis reproducible, pero basados en los códigos originales que se encuentran en el <em>Manual de uso de la base de datos</em>, por lo que se han adaptado para el proceso de reproducción pero sin alterar su esencia. Para ello, se han utilizado como asistentes los lenguajes de IA Claude opus 4.6 de Anthropic y Gemini pro, que han permitido adaptar el código original a un formato más legible y organizado, sin modificar la lógica ni los pasos del proceso de análisis. Asimismo, pudiendo desarrollar el código específico para la reproducción de la tabla 16 del <em>Informe de Principales Resultados</em> de la ENUT, que no se encuentra en el <em>Manual de uso de la base de datos</em>, pero que se deriva a partir de los códigos originales.</p>
 <p>En ese sentido, los cambios realizados en el código original para el proceso de reproducción fueron necesarios, dado que, si bien el <em>Manual de uso de la base de datos</em> funciona como diccionario y base metodológica para el procesamiento de los datos, la dificultad principal es que plantea el qué hacer con los datos, pero no especifica el cómo ni los códigos exactos necesarios.</p>
-<p>Dentro de las dificultades, los códigos del <em>Manual de uso de base de datos</em> entregan una estructura determinada para el procesamiento, más no el código específico para tratar algunas variables. A su vez, el manual no provee una sola línea de código legible para el procesamiento de la base de datos, sino bloques pequeños que retratan acciones específicas para casos particulares. En otras palabras, la línea completa del código original es el resultado de la unión de varios bloques que se encuentran por separado, por tanto, la búsqueda y tratamiento de las variables de interés se torna compleja. En este caso, dado el tamaño y complejidad de la base de datos, se hizo difícil la selección de variables y su inclusión, por ejemplo, para la identificación de la variable tiempo, en el manual estaba incompleto, por tanto se hizo una búsqueda del nombre de la variable para tratarse como tal y se consultó a la IA, para desarrollar el código necesario para el tratamiento de esta variable en la respectiva reproducibilidad. A su vez, para la derivación de participación, el código no incluía la participación en días de semana completa, constituyéndose como variable central de toda la tabla, por tanto, se hizo necesario desarrollar el código mediante la IA, dado que sin ella (variable), ninguna estimación posterior podría haberse ejecutado. Otra dificulad encontrada es que no existe código que retrate la unión de las variables de interés a la base principal, sin este paso, el diseño muetral complejo no hubiese tenido acceso a las variables derivadas, el manual sólo hace la unión en bases temporales o paralelas. En último lugar, para reproducir la tabla específicamente, en las estimaciones poblacionales, sólo se tuvo que reemplazar “región” que es la variable original que el manual utiliza para la estimación por región, por “pdn” que es la variable de nacionalidad, para hacer las estimaciones de participación chilena versus extranjera.</p>
+<p>Dentro de las dificultades, los códigos del <em>Manual de uso de base de datos</em> entregan una estructura determinada para el procesamiento, más no el código específico para tratar algunas variables. A su vez, el manual no provee una sola línea de código legible para el procesamiento de la base de datos, sino bloques pequeños que retratan acciones específicas para casos particulares. En otras palabras, la línea completa del código original es el resultado de la unión de varios bloques que se encuentran por separado, por tanto, la búsqueda y tratamiento de las variables de interés se torna compleja. En este caso, dado el tamaño y complejidad de la base de datos, se hizo difícil la selección de variables y su inclusión, por ejemplo, para la identificación de la variable tiempo, en el manual estaba incompleto, por tanto se hizo una búsqueda del nombre de la variable para tratarse como tal y se consultó a la IA, para desarrollar el código necesario para el tratamiento de esta variable en la respectiva reproducibilidad. A su vez, para la derivación de participación, el código no incluía la participación en días de semana completa, constituyéndose como variable central de toda la tabla, por tanto, se hizo necesario desarrollar el código mediante la IA, dado que sin ella (variable), ninguna estimación posterior podría haberse ejecutado. Otra dificulad encontrada es que no existe código que retrate la unión de las variables de interés a la base principal, sin este paso, el diseño muestral complejo no hubiese tenido acceso a las variables derivadas, el manual sólo hace la unión en bases temporales o paralelas. En último lugar, para reproducir la tabla específicamente, en las estimaciones poblacionales, sólo se tuvo que reemplazar “región” que es la variable original que el manual utiliza para la estimación por región, por “pdn” que es la variable de nacionalidad, para hacer las estimaciones de participación chilena versus extranjera.</p>
 </section><section id="reproducción" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="reproducción">
 <span class="header-section-number">3.2.2</span> Reproducción</h3>
 <div class="cell">
@@ -476,23 +476,23 @@ div.csl-indent {
 <span>    locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_body.html">cells_body</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="va">Nacionalidad</span> <span class="op">==</span> <span class="st">"Total"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
-<div id="hfmvnexvbm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hfmvnexvbm table {
+<div id="zmdylumwwc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zmdylumwwc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hfmvnexvbm thead, #hfmvnexvbm tbody, #hfmvnexvbm tfoot, #hfmvnexvbm tr, #hfmvnexvbm td, #hfmvnexvbm th {
+#zmdylumwwc thead, #zmdylumwwc tbody, #zmdylumwwc tfoot, #zmdylumwwc tr, #zmdylumwwc td, #zmdylumwwc th {
   border-style: none;
 }
 
-#hfmvnexvbm p {
+#zmdylumwwc p {
   margin: 0;
   padding: 0;
 }
 
-#hfmvnexvbm .gt_table {
+#zmdylumwwc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -518,12 +518,12 @@ div.csl-indent {
   border-left-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_caption {
+#zmdylumwwc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hfmvnexvbm .gt_title {
+#zmdylumwwc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -535,7 +535,7 @@ div.csl-indent {
   border-bottom-width: 0;
 }
 
-#hfmvnexvbm .gt_subtitle {
+#zmdylumwwc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -547,7 +547,7 @@ div.csl-indent {
   border-top-width: 0;
 }
 
-#hfmvnexvbm .gt_heading {
+#zmdylumwwc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -559,13 +559,13 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_bottom_border {
+#zmdylumwwc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_col_headings {
+#zmdylumwwc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -580,7 +580,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_col_heading {
+#zmdylumwwc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -600,7 +600,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#hfmvnexvbm .gt_column_spanner_outer {
+#zmdylumwwc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -612,15 +612,15 @@ div.csl-indent {
   padding-right: 4px;
 }
 
-#hfmvnexvbm .gt_column_spanner_outer:first-child {
+#zmdylumwwc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hfmvnexvbm .gt_column_spanner_outer:last-child {
+#zmdylumwwc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hfmvnexvbm .gt_column_spanner {
+#zmdylumwwc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -632,11 +632,11 @@ div.csl-indent {
   width: 100%;
 }
 
-#hfmvnexvbm .gt_spanner_row {
+#zmdylumwwc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hfmvnexvbm .gt_group_heading {
+#zmdylumwwc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -662,7 +662,7 @@ div.csl-indent {
   text-align: left;
 }
 
-#hfmvnexvbm .gt_empty_group_heading {
+#zmdylumwwc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -677,15 +677,15 @@ div.csl-indent {
   vertical-align: middle;
 }
 
-#hfmvnexvbm .gt_from_md > :first-child {
+#zmdylumwwc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hfmvnexvbm .gt_from_md > :last-child {
+#zmdylumwwc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hfmvnexvbm .gt_row {
+#zmdylumwwc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -704,7 +704,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#hfmvnexvbm .gt_stub {
+#zmdylumwwc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -717,7 +717,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#hfmvnexvbm .gt_stub_row_group {
+#zmdylumwwc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -731,15 +731,15 @@ div.csl-indent {
   vertical-align: top;
 }
 
-#hfmvnexvbm .gt_row_group_first td {
+#zmdylumwwc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hfmvnexvbm .gt_row_group_first th {
+#zmdylumwwc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hfmvnexvbm .gt_summary_row {
+#zmdylumwwc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -749,16 +749,16 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#hfmvnexvbm .gt_first_summary_row {
+#zmdylumwwc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_first_summary_row.thick {
+#zmdylumwwc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hfmvnexvbm .gt_last_summary_row {
+#zmdylumwwc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -768,7 +768,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_grand_summary_row {
+#zmdylumwwc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -778,7 +778,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#hfmvnexvbm .gt_first_grand_summary_row {
+#zmdylumwwc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -788,7 +788,7 @@ div.csl-indent {
   border-top-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_last_grand_summary_row_top {
+#zmdylumwwc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -798,11 +798,11 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_striped {
+#zmdylumwwc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hfmvnexvbm .gt_table_body {
+#zmdylumwwc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -811,7 +811,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_footnotes {
+#zmdylumwwc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -825,7 +825,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_footnote {
+#zmdylumwwc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -834,7 +834,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#hfmvnexvbm .gt_sourcenotes {
+#zmdylumwwc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -848,7 +848,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#hfmvnexvbm .gt_sourcenote {
+#zmdylumwwc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -856,72 +856,72 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#hfmvnexvbm .gt_left {
+#zmdylumwwc .gt_left {
   text-align: left;
 }
 
-#hfmvnexvbm .gt_center {
+#zmdylumwwc .gt_center {
   text-align: center;
 }
 
-#hfmvnexvbm .gt_right {
+#zmdylumwwc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hfmvnexvbm .gt_font_normal {
+#zmdylumwwc .gt_font_normal {
   font-weight: normal;
 }
 
-#hfmvnexvbm .gt_font_bold {
+#zmdylumwwc .gt_font_bold {
   font-weight: bold;
 }
 
-#hfmvnexvbm .gt_font_italic {
+#zmdylumwwc .gt_font_italic {
   font-style: italic;
 }
 
-#hfmvnexvbm .gt_super {
+#zmdylumwwc .gt_super {
   font-size: 65%;
 }
 
-#hfmvnexvbm .gt_footnote_marks {
+#zmdylumwwc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hfmvnexvbm .gt_asterisk {
+#zmdylumwwc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hfmvnexvbm .gt_indent_1 {
+#zmdylumwwc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hfmvnexvbm .gt_indent_2 {
+#zmdylumwwc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hfmvnexvbm .gt_indent_3 {
+#zmdylumwwc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hfmvnexvbm .gt_indent_4 {
+#zmdylumwwc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hfmvnexvbm .gt_indent_5 {
+#zmdylumwwc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hfmvnexvbm .katex-display {
+#zmdylumwwc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hfmvnexvbm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zmdylumwwc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1024,12 +1024,13 @@ Brechas (b)
 </div>
 </div>
 </div>
+<p>Se observa una reproducibilidad exitosa de la Tabla 16, faltando tan solo incluir el color morado que utiliza la tabla original. Así pues, con la adaptación de los códigos originales brindados por el INE y el desarrollo de códigos específicos para la reproducción de la tabla, se logró obtener una tabla con la misma estructura. No obstante, al observar detenidamente los resultados de ambas tablas, se identifican pequeñas variaciones en algunos valores. Más específicamente, en el total de n° de personas que participan (14.526.420 en la tabla original y 14.691.062 en la replicada); en el tiempo promedio día tipo para la mujer chilena (05:00 en original, 04:59 en la replicada), en el total de mujeres de la muestra (04:58 vs 04:57) y también en el total para chilenos (04:00 vs 03:59) y para la muestra en su totalidad (03:58 vs 03:57); finalmente, esas variaciones de un minuto, modifican también los valores de las brechas de tiempo, dado que se calculan a partir de los valores de tiempo promedio. La brecha de tiempo entre chilenos y extranjeros se diferenciaba en dos minutos en la tabla original (02:07 para chilenos y 02:05 para extranjeros), mientras que en la tabla replicada, la brecha se mantiene igual (02:06), dando un total de 02:05 (un minuto menos que en la original). Si bien son variaciones pequeñas, resulta pertinente reportarlo ya que justamente se está evaluando la replicabilidad del estudio. Así también, sería importante identificar el origen de estas variaciones, que podrían deberse a diferencias en el manejo de los datos o a la forma en que se han tratado los casos perdidos, lo cual es de esperar que ocurra frente a la falta de acceso al código original en su totalidad.</p>
 </section></section></section><section id="conclusiones" class="level1" data-number="4"><h1 data-number="4">
 <span class="header-section-number">4</span> Conclusiones</h1>
-<p>Basándose en el análisis realizado, escriban una conclusión sobre el nivel de reproducibilidad del artículo seleccionado.</p>
+<p>A partir del ejercicio realizado, se determina un muy alto nivel de reproducibilidad del artículo seleccionado, dado que se logró reproducir la Tabla 16 del <em>Informe de Principales Resultados</em> de la ENUT, con una estructura idéntica a la original, aunque con pequeñas variaciones en algunos valores. Respecto a la evaluación realizada antes del análisis reproducible, se concluye que el artículo cumple con los criterios de disponibilidad de datos, documentación y transparencia, pero no cumple con el criterio de disponibilidad de código, lo que dificulta la replicación exacta del análisis realizado. Si bien el <em>Manual de uso de base de datos</em> es muy detallado e incluso está equipado de explicaciones para usuarios que desconocen el lenguaje y utilización de softwares de programación, no hay acceso al código específico, lo que hace que sea necesario desarrollar códigos propios con ayuda de Inteligencia Artificial.</p>
 </section><section id="recomendaciones" class="level1" data-number="5"><h1 data-number="5">
 <span class="header-section-number">5</span> Recomendaciones</h1>
-<p>Recomendaciones para mejorar la reproducibilidad del artículo, si es necesario.</p>
+<p>Recomendamos como grupo que el Instituto Nacional de Estadística de Chile, en futuras publicaciones, entregue acceso al código utilizado para el análisis, lo que facilitaría la replicación exacta del estudio y aumentaría la transparencia y reproducibilidad de la investigación. Además, sugerimos que se incluya una sección específica en el artículo donde se detalle el proceso de análisis y se proporcionen los códigos utilizados, o bien, que se publique un repositorio con toda esta información. Esto no solo beneficiaría a otros investigadores interesados en replicar el estudio, sino que también contribuiría a fortalecer la confianza en los resultados presentados y a fomentar una cultura de apertura y colaboración en la investigación científica.</p>
 </section><section id="referencias" class="level1" data-number="6"><h1 data-number="6">
 <span class="header-section-number">6</span> Referencias</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
@@ -1053,7 +1054,7 @@ Instituto Nacional de Estadísticas. (2026). <em><span>Informe de Calidad II ENU
 <span class="header-section-number">7</span> Apéndice</h1>
 <section id="código" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="código">
 <span class="header-section-number">7.1</span> Código</h2>
-<p>A continuación, el código original que se encuentra en el Manual de Uso de Base de Datos. Como se menciona en el análisis, no es un código legible ni completo para el proceso de reproducción. Además, la línea completa es el resultado de la unión de varios bloques por lo que se hizo necesario adaptarlo y desarrollarlo.</p>
+<p>A continuación, el código original que se encuentra en el Manual de Uso de Base de Datos. Como se menciona en el análisis, no es un código legible ni completo para el proceso de reproducción, dado que la línea completa es el resultado de la unión de varios bloques separados, por lo que se hizo necesario adaptarlo y desarrollarlo. Por tanto, correrlo no tendrá efectos en la base de datos ni la reproducibilidad de la tabla.</p>
 <div class="cell">
 <details class="code-fold"><summary>Show the code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># PASO 2: Identificación de variables participación y tiempo ---- </span></span>
 <span><span class="co">## Variables de participación </span></span>
