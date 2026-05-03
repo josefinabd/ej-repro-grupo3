@@ -27,6 +27,7 @@ ej-repro-grupo3/
  |  |  |- original/
  |  |  |  |- 250403-ii-enut-bdd-r-v2.RDS
  |  |  |- proc/
+ |  |  |  |- Codigo_procesamiento.qmd
  |  |- images/
  |  |  |- Tabla16.png
  |  |- original-code/
